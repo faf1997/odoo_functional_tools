@@ -1,0 +1,14 @@
+<odoo>
+  <record id="view_model_fields_tree_inherit" model="ir.ui.view">
+    <field name="name">ir.model.fields.tree.inherit.module.name</field>
+    <field name="model">ir.model.fields</field>
+    <field name="inherit_id" ref="base.view_model_fields_tree"/>
+    <field name="arch" type="xml">
+      <!-- Inserta los dos campos después de la columna 'name' -->
+      <xpath expr="//tree/field[@name='readonly']" position="after">
+        <field name="module_name" invisible="1"/>
+        <field name="module_name_technical" string="Módulo"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>
