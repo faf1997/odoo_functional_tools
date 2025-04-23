@@ -1,6 +1,6 @@
 {
     'name': 'Model Fields Module Name',
-    'version': '16.0.1.0.0',
+    'version': '17.0.1.0.0',
     'category': 'Technical Settings',
     'depends': ['base'],
     'author': 'Francisco Fiorentino',
