@@ -1,6 +1,6 @@
 # fields_module/models/ir_model_fields.py
 
-from odoo import models, fields
+from odoo import models, fields, api, _
 
 class IrModelFields(models.Model):
     _inherit = 'ir.model.fields'
@@ -34,5 +34,19 @@ class IrModelFields(models.Model):
                 # muestra solamente el valor técnico
                 rec.module_name_technical = xml.module
             else:
-                rec.module_name           = False
+                rec.module_name = False
                 rec.module_name_technical = False
+
+    def action_open_module(self):
+        """Devuelve la ventana formulario del módulo asociado."""
+        self.ensure_one()
+        if not self.module_name:
+            return {'type': 'ir.actions.act_window_close'}
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Module'),
+            'res_model': 'ir.module.module',
+            'view_mode': 'form',
+            'res_id': self.module_name.id,
+            'target': 'current',
+        }
