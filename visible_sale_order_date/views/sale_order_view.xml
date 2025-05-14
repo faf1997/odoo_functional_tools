@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_sale_order_form_remove_date_group" model="ir.ui.view">
+    <field name="name">sale.order.form.remove.date_order.group</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+      <!-- Localiza el campo date_order y elimina el atributo groups -->
+      <xpath expr="//field[@name='date_order' and @groups='base.group_no_one']" position="attributes">
+        <attribute name="groups"/>
+      </xpath>
+
+      <xpath expr="//group[@name='order_details']/div[@class='o_td_label' and @groups='base.group_no_one']" position="attributes">
+        <attribute name="groups"/>
+      </xpath>
+
+    </field>
+  </record>
+</odoo>
