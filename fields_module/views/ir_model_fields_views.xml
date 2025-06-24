@@ -7,7 +7,7 @@
       <!-- Después de 'readonly', insertamos nuestros campos y el botón -->
       <xpath expr="//tree/field[@name='readonly']" position="after">
         <!-- El Many2one invisible -->
-        <field name="module_name" invisible="1"/>
+        <field name="module_name" invisible="True"/>
         <!-- El nombre técnico visible -->
         <field name="module_name_technical" string="Módulo"/>
         <!-- Botón para abrir módulo -->
@@ -15,7 +15,7 @@
           name="action_open_module"
           type="object"
           icon="fa-external-link"
-          attrs="{'invisible':[('module_name', '=', False)]}"
+          invisible="module_name == False"
           string=""
         />
       </xpath>

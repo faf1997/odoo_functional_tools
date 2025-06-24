@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+    <!-- Form view: muestra el código junto a la referencia -->
+    <record id="view_partner_form_customer_code" model="ir.ui.view">
+      <field name="name">res.partner.form.customer.code</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='ref']" position="after">
+          <field name="customer_code" readonly="1"/>
+        </xpath>
+      </field>
+    </record>
+
+    <!-- Tree view: muestra el código en la lista de contactos -->
+    <record id="view_partner_tree_customer_code" model="ir.ui.view">
+      <field name="name">res.partner.tree.customer.code</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='ref']" position="after">
+          <field name="customer_code" readonly="1"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
