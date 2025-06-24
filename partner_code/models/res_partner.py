@@ -1,11 +1,10 @@
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     customer_code = fields.Char(
-        string='Código de cliente', copy=False, index=True
+        string='Código de Referencia', copy=False, index=True
     )
 
     _sql_constraints = [
