@@ -2,7 +2,7 @@ from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
 class ResPartner(models.Model):
-_inherit = 'res.partner'
+    _inherit = 'res.partner'
 
     customer_code = fields.Char(
         string='Customer Code', copy=False, readonly=True, index=True
