@@ -5,7 +5,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     customer_code = fields.Char(
-        string='Customer Code', copy=False, readonly=True, index=True
+        string='Código de cliente', copy=False, readonly=True, index=True
     )
 
     _sql_constraints = [
@@ -17,6 +17,7 @@ class ResPartner(models.Model):
         if not vals.get('customer_code'):
             vals['customer_code'] = self.env['ir.sequence'].next_by_code('res.partner.customer.code')
         return super().create(vals)
+
 
     def write(self, vals):
         if 'customer_code' in vals:
