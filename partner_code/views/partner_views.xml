@@ -7,7 +7,7 @@
       <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='category_id']" position="after">
-          <field name="customer_code" readonly="1"/>
+          <field name="customer_code"/>
         </xpath>
       </field>
     </record>
@@ -19,7 +19,7 @@
       <field name="inherit_id" ref="base.view_partner_tree"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='complete_name']" position="after">
-          <field name="customer_code" readonly="1"/>
+          <field name="customer_code"/>
         </xpath>
       </field>
     </record>

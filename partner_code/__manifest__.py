@@ -1,6 +1,6 @@
 {
     'name': 'Partner Customer Code',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0.1',
     'summary': 'Automatic configurable sequence for customer codes',
     'description': 'Adds configurable sequence to assign unique customer codes to partners and applies it to existing records. Once set, codes cannot be modified.',
     'category': 'Contacts',

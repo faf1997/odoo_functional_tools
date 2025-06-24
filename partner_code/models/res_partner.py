@@ -5,7 +5,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     customer_code = fields.Char(
-        string='Código de cliente', copy=False, readonly=True, index=True
+        string='Código de cliente', copy=False, index=True
     )
 
     _sql_constraints = [
