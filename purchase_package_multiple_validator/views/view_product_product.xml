@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Heredamos la vista product_template_only_form_view -->
+  <record id="product_template_normal_form_view_inherit_route_ids" model="ir.ui.view">
+    <field name="name">product.product.normal.form.route.ids.inherit</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+    <field name="arch" type="xml">
+      <xpath expr="//group[@name='packaging']" position="before">
+        <group name="multipacks" string="Compra y venta por múltiplos de embalaje">
+            <field name="is_sellable_in_multipacks"/>
+            <field name="is_purchasable_in_multipacks"/>
+        </group>
+      </xpath>
+    </field>
+  </record>
+</odoo>

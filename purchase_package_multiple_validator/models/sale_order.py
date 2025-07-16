@@ -2,8 +2,11 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_is_zero
 
-class PurchaseOrder(models.Model):
-    _inherit = 'purchase.order'
+
+
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
 
 
     @api.constrains('order_line')
