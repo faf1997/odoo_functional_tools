@@ -14,7 +14,8 @@ class SaleOrder(models.Model):
         self.ensure_one()
         is_packaging = self.env.user.has_group('product.group_stock_packaging')
         for rec in self.order_line:
-            if is_packaging and rec.product_id.packaging_ids:
+            # raise ValidationError(f'{rec.product_id.is_sellable_in_multipacks}')
+            if is_packaging and rec.product_id.is_sellable_in_multipacks and rec.product_id.packaging_ids:
                 self._validate_multiples(rec.product_id, rec.product_qty)
 
 
