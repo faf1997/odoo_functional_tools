@@ -54,6 +54,7 @@ class CurlTask(models.Model):
         "ir.actions.server",
         string="Server Action",
         ondelete="set null",
+        store=True,
         domain=[("name", "ilike", "curl_%")]
     )
 
@@ -62,6 +63,7 @@ class CurlTask(models.Model):
         "project_task_curl_rel",
         "curl_id",
         "task_id",
+        store=True,
         string="Project Tasks"
     )
 
@@ -79,6 +81,7 @@ class CurlTask(models.Model):
         column2="param_id",
         string="Config Parameters",
         help="Parámetros del sistema que esta tarea puede consultar.",
+        store=True,
         domain=[("key", "ilike", "param_task_%")]
     )
 

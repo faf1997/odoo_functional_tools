@@ -15,7 +15,8 @@ class ProjectTask(models.Model):
         "task_id",
         "curl_id",
         string="Curls",
-        domain=[("key", "ilike", "curl_task_%")]
+        store=True,
+        domain=[("name", "ilike", "curl_task_%")]
     )
 
 
