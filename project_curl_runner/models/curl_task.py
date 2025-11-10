@@ -123,7 +123,7 @@ class CurlTask(models.Model):
             self.write({
                 'action_server_id': ir_actions_server.id
             })
-        #     return self.action_server_id.id
+            return self.action_server_id.id
 
 
         self.action_server_id.write({
