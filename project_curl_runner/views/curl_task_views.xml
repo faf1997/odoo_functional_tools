@@ -25,12 +25,12 @@
                         <field name="status_code"/>
                         <field name="status"/>
                         <field name="action_server_id" readonly="1"/>
-                        <field name="project_task_ids"/>
+                        <field name="project_task_ids" readonly="1" invisible="1"/>
                     </group>
                     <!-- Notebook dentro del PRIMER group -->
                         <notebook>
                             <page string="Parameters">
-                            <field name="config_parameter_ids" editable="top">
+                            <field name="config_parameter_ids">
                                 <tree editable="bottom">
                                 <field name="key"/>
                                 <field name="value"/>
