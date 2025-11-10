@@ -11,11 +11,7 @@
                         string="Ver Curl"
                         class="btn-primary"/>
             </xpath>
-            <xpath expr="//header" position="after">
-                <group>
-                    <field name="curl_ids"/>
-                </group>
-            </xpath>
+
         </field>
     </record>
 </odoo>
