@@ -14,7 +14,8 @@ class ProjectTask(models.Model):
         "project_task_curl_rel",
         "task_id",
         "curl_id",
-        string="Curls"
+        string="Curls",
+        domain=[("key", "ilike", "curl_task_%")]
     )
 
 
