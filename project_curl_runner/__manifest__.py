@@ -8,7 +8,7 @@
     "depends": [
         "base",
         "project",
-        # "project_template",
+        "project_template",
     ],
     "external_dependencies": {
         "python": ["requests", "uncurl"]
@@ -17,6 +17,7 @@
         "security/ir.model.access.csv",
         "views/curl_task_views.xml",
         "views/project_task_views.xml",
+        "views/project_project_views.xml",
     ],
     "installable": True,
     "application": False,

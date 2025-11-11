@@ -71,7 +71,8 @@ class CurlTask(models.Model):
         "ir.model",
         string="Model",
         ondelete="set null",
-        help="Modelo de Odoo sobre el cual se evaluarán expresiones"
+        help="Modelo de Odoo sobre el cual se evaluarán expresiones",
+        default=lambda self: self.env['ir.model']._get_id(self._name)
     )
 
     config_parameter_ids = fields.Many2many(
@@ -82,8 +83,20 @@ class CurlTask(models.Model):
         string="Config Parameters",
         help="Parámetros del sistema que esta tarea puede consultar.",
         store=True,
-        domain=[("key", "ilike", "param_task_%")]
+        domain=[("key", "ilike", "task_param_%")]
     )
+
+    # def create(self, vals):
+    #     raise UserError(f"{vals.get('id', 'sin_id')}")
+
+    # @api.onchange('id')
+    # def _related_compute(self):
+    #     for rec in self:
+    #         # for task in rec.project_task_ids:
+    #         if rec.project_task_ids:
+    #             rec.write({
+    #                 '': [(4, id)] for id in rec.project_task_ids.ids
+    #             })
 
 
     def launch_action_server(self):
@@ -92,9 +105,16 @@ class CurlTask(models.Model):
             raise UserError('No está creada la acción del servidor para ejecutar el código')
         
         self.action_server_id.run()
-        return self.action_server_id.id
+        return self.action_server_id.id or self.action_server_id.id
 
-    def prepare_ir_actions_server_record(self):
+
+    def _related_fix(self):
+        self.ensure_one()
+        for task in self.project_task_ids:
+            task.write({'curl_ids': [(4, self.id)]})
+
+
+    def prepare_ir_actions_server_record(self):#acción para crear el registro ir.action.server
         self.ensure_one()
 
         clear_comments_and_doc_strings = self.strip_python_comments(
@@ -105,37 +125,32 @@ class CurlTask(models.Model):
         if not 'curl' in clear_comments_and_doc_strings:
             raise UserError("No está el comando curl en el campo command")
 
-
         render_curl = "resp = " + uncurl.parse(self.render_double_braces(
             template = clear_comments_and_doc_strings,
             record_model = self._name,
-            record_id = self.id
+            record_id = self.id or self.id
         ))
 
-
-        # raise UserError(f"{self.env['ir.model']._get_id(self._name)}")
-
         if not self.action_server_id:
-            # self.action_server_id.unlink()
             ir_actions_server = self.env['ir.actions.server'].create({
                 'name': self.name,
                 'state': 'code',
-                'model_id': self.model_id.id,#self.env['ir.model']._get_id(self._name),#model_id
+                'model_id': self.model_id.id or self.model_id.id,#self.env['ir.model']._get_id(self._name),#model_id
                 'code': f"{render_curl}\n\n{self.code}"
             })
             self.write({
-                'action_server_id': ir_actions_server.id
+                'action_server_id': ir_actions_server.id or ir_actions_server.id
             })
-        #     return self.action_server_id.id
-
+            self._related_fix()
+            return self.action_server_id.id or self.action_server_id.id
 
         self.action_server_id.write({
             'name': self.name,
             'code': f"{render_curl}\n\n{self.code}",
-            'model_id': self.model_id.id
+            'model_id': self.model_id.id or self.model_id.id
         })
-
-        return self.action_server_id.id
+        self._related_fix()
+        return self.action_server_id.id or self.action_server_id.id
 
 
     def strip_python_comments(self, source: str, remove_docstrings: bool = True) -> str:
@@ -182,7 +197,7 @@ class CurlTask(models.Model):
         # si no vino nada y self es un recordset concreto, usar self
         if not model_name and getattr(self, "_name", None) and len(self) == 1:
             model_name = self._name
-            rid = self.id
+            rid = self.id or self.id
 
         records = self.env[model_name].browse(rid) if (model_name and rid) else self.env[model_name] if model_name else self.env["ir.model"].browse()
 
