@@ -3,6 +3,10 @@ from odoo.exceptions import UserError
 
 
 
+#TODO: Falta completar
+#1. replicar registros de variables y archivos
+#2. el wizard dinámico para validar las variables al desplegar el proyecto
+#3. leer los archivos .py y .json(de n8n) para asignar variables (las variables de n8n deben ser trabajadas sobre el nodo set)
 
 
 class ProjectProject(models.Model):
