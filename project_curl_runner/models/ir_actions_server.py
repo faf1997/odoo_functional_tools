@@ -15,3 +15,4 @@ class IrActionsServer(models.Model):
         # Exponer SOLO atributos permitidos del módulo:
         ctx["requests"] = wrap_module(_requests, {"request", "get", "post", "put", "patch", "delete"})
         return ctx
+

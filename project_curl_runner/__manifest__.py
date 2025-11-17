@@ -15,6 +15,7 @@
     },
     "data": [
         "security/ir.model.access.csv",
+        "wizard/window_deploy_project_wizard.xml",
         "views/curl_task_views.xml",
         "views/project_task_views.xml",
         "views/project_project_views.xml",

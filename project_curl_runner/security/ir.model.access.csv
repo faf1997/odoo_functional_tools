@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_curl_task_user,access_curl_task_user,model_curl_task,base.group_user,1,1,1,1
+access_window_deploy_project_user,access_window_deploy_project_user,model_window_deploy_project,base.group_user,1,1,1,1

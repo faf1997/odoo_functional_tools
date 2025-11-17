@@ -17,6 +17,9 @@ from odoo.tools.safe_eval import safe_eval
 class CurlTask(models.Model):
     _name = "curl.task"
     _description = "Curl Task"
+    _order = "sequence, id"
+
+    sequence = fields.Integer()
 
     name = fields.Char(
         required=True,
@@ -86,24 +89,75 @@ class CurlTask(models.Model):
         domain=[("key", "ilike", "task_param_%")]
     )
 
-    # def create(self, vals):
-    #     raise UserError(f"{vals.get('id', 'sin_id')}")
 
-    # @api.onchange('id')
-    # def _related_compute(self):
-    #     for rec in self:
-    #         # for task in rec.project_task_ids:
-    #         if rec.project_task_ids:
-    #             rec.write({
-    #                 '': [(4, id)] for id in rec.project_task_ids.ids
-    #             })
+    def action_curl_to_request(self):
+        self.ensure_one()
+        request = self.get_request()
+        if request:
+            self.write({
+                'code': f'{self.code}\n{request}'
+            })
+
+
+    def get_request(self):
+        self.ensure_one()
+        clear_comments_and_doc_strings = self.strip_python_comments(
+            self.command,
+            True
+        ).strip()
+        render_curl = ''
+        if 'curl' in clear_comments_and_doc_strings:
+            render_curl = "resp = " + uncurl.parse(clear_comments_and_doc_strings)
+            # render_curl = "resp = " + uncurl.parse(self.render_double_braces(
+            #     template = clear_comments_and_doc_strings,
+            #     record_model = self._name,
+            #     record_id = self.id or self.id
+            # ))
+
+        return render_curl
+
+
+    def prepare_ir_actions_server_record(self):#acción para crear el registro ir.action.server
+        self.ensure_one()
+
+        clear_comments_and_doc_strings_in_code = self.strip_python_comments(
+            self.code,
+            True
+        ).strip()
+
+        clear_comments_and_doc_strings_in_code = self.render_double_braces(
+            template = clear_comments_and_doc_strings_in_code,
+            record_model = self._name,
+            record_id = self.id
+        )
+
+        if not self.action_server_id:
+            ir_actions_server = self.env['ir.actions.server'].create({
+                'name': self.name,
+                'state': 'code',
+                'model_id': self.model_id.id or self.model_id.id,#self.env['ir.model']._get_id(self._name),#model_id
+                'code': clear_comments_and_doc_strings_in_code
+            })
+            self.sudo().write({
+                'action_server_id': ir_actions_server.id or ir_actions_server.id
+            })
+            self._related_fix()
+            return self.action_server_id.id or self.action_server_id.id
+
+        self.action_server_id.sudo().write({
+            'name': self.name,
+            'code': clear_comments_and_doc_strings_in_code,
+            'model_id': self.model_id.id or self.model_id.id
+        })
+        self._related_fix()
+        return self.action_server_id.id or self.action_server_id.id
 
 
     def launch_action_server(self):
         self.ensure_one()
         if not self.action_server_id:
             raise UserError('No está creada la acción del servidor para ejecutar el código')
-        
+
         self.action_server_id.run()
         return self.action_server_id.id or self.action_server_id.id
 
@@ -112,45 +166,6 @@ class CurlTask(models.Model):
         self.ensure_one()
         for task in self.project_task_ids:
             task.write({'curl_ids': [(4, self.id)]})
-
-
-    def prepare_ir_actions_server_record(self):#acción para crear el registro ir.action.server
-        self.ensure_one()
-
-        clear_comments_and_doc_strings = self.strip_python_comments(
-            self.command,
-            True
-        )
-
-        if not 'curl' in clear_comments_and_doc_strings:
-            raise UserError("No está el comando curl en el campo command")
-
-        render_curl = "resp = " + uncurl.parse(self.render_double_braces(
-            template = clear_comments_and_doc_strings,
-            record_model = self._name,
-            record_id = self.id or self.id
-        ))
-
-        if not self.action_server_id:
-            ir_actions_server = self.env['ir.actions.server'].create({
-                'name': self.name,
-                'state': 'code',
-                'model_id': self.model_id.id or self.model_id.id,#self.env['ir.model']._get_id(self._name),#model_id
-                'code': f"{render_curl}\n\n{self.code}"
-            })
-            self.write({
-                'action_server_id': ir_actions_server.id or ir_actions_server.id
-            })
-            self._related_fix()
-            return self.action_server_id.id or self.action_server_id.id
-
-        self.action_server_id.write({
-            'name': self.name,
-            'code': f"{render_curl}\n\n{self.code}",
-            'model_id': self.model_id.id or self.model_id.id
-        })
-        self._related_fix()
-        return self.action_server_id.id or self.action_server_id.id
 
 
     def strip_python_comments(self, source: str, remove_docstrings: bool = True) -> str:
@@ -230,7 +245,7 @@ class CurlTask(models.Model):
 
 
     @api.constrains('name', 'model_id', 'status_code')
-    def _constains_data(self):
+    def _constrains_data(self):
         for rec in self:
             if not rec.model_id:
                 raise UserError("No se asignó el modelo en el registro")
@@ -238,7 +253,7 @@ class CurlTask(models.Model):
                 raise UserError("No se asignó el status code en el registro")
             if not rec.name:
                 raise UserError("No se asignó el nombre en el registro")
-            
+
 
     @api.model
     def _default_name(self):

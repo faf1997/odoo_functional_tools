@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 # See _map_tasks_default_valeus
@@ -16,36 +16,21 @@ class ProjectTask(models.Model):
         "curl_id",
         string="Curls",
         store=True,
-        domain=[("name", "ilike", "curl_task_%")]
+        domain=[("name", "ilike", "curl_task_%")],
     )
-
-
-    # def action_view_task_curls(self):
-    #     self.ensure_one()
-    #     return {
-    #         "type": "ir.actions.act_window",
-    #         "name": "Curl Tasks",
-    #         "res_model": "curl.task",
-    #         "view_mode": "tree,form",
-    #         # "domain": [("project_task_ids", "in", self.curl_ids.ids)],
-    #         "context": {"default_project_task_ids": [(4, self.id)]},
-    #     }
 
 
     def action_view_task_curls(self):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": "Curl Tasks",
+            "name": "Tareas automatizadas",
             "res_model": "curl.task",
             "view_mode": "tree,form",
-            # Opción A: filtrar por la relación ya existente
             "domain": [("id", "in", self.curl_ids.ids)],
-            # Opción B (si definís el espejo abajo):
-            # "domain": [("project_task_ids", "in", self.id)],
             "context": {
-                # Setea por defecto la tarea actual en el M2M del otro modelo
                 "default_project_task_ids": [(6, 0, [self.id])],
+                "task_param_prefix": "task_param_",
             },
             "target": "current",
         }

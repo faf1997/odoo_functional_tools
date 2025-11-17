@@ -6,6 +6,10 @@
         <field name="arch" type="xml">
             <form string="Curl Task">
                 <header>
+                    <button name="action_curl_to_request"
+                            type="object"
+                            string="Curl a request"
+                            class="btn-primary"/>
                     <button name="prepare_ir_actions_server_record"
                             type="object"
                             string="Render ir.actions.server"
@@ -20,13 +24,14 @@
                 </header>
                 <sheet>
                     <group>
+                        <field name="sequence" invisible="1"/>
                         <field name="id"/>
                         <field name="name"/>
                         <field name="model_id"/>
                         <field name="status_code"/>
                         <field name="status"/>
                         <field name="action_server_id" readonly="1"/>
-                        <field name="project_task_ids" readonly="1" invisible="1"/>
+                        <field name="project_task_ids" readonly="1" invisible="0"/>
                     </group>
                     <!-- Notebook dentro del PRIMER group -->
                         <notebook>
