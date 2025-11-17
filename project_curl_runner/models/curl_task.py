@@ -94,7 +94,7 @@ class CurlTask(models.Model):
         self.ensure_one()
         request = self.get_request()
         if request:
-            self.write({
+            self.sudo().write({
                 'code': f'{self.code}\n{request}'
             })
 
@@ -165,7 +165,7 @@ class CurlTask(models.Model):
     def _related_fix(self):
         self.ensure_one()
         for task in self.project_task_ids:
-            task.write({'curl_ids': [(4, self.id)]})
+            task.sudo().write({'curl_ids': [(4, self.id)]})
 
 
     def strip_python_comments(self, source: str, remove_docstrings: bool = True) -> str:
