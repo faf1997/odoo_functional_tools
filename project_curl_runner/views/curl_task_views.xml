@@ -31,7 +31,7 @@
                         <field name="status_code"/>
                         <field name="status"/>
                         <field name="action_server_id" readonly="1"/>
-                        <field name="project_task_ids" readonly="1" invisible="0"/>
+                        <field name="project_task_ids" readonly="1" invisible="1"/>
                     </group>
                     <!-- Notebook dentro del PRIMER group -->
                         <notebook>

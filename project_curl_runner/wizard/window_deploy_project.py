@@ -48,12 +48,11 @@ class WindowDeployProject(models.TransientModel):
         self.ensure_one()
         self._save_in_project()
         if self.project_id and self.project_id.task_ids:
-            #TODO:
-            #terminar de armar la ejecución de las acciones de servidor en las tareas
-            pass
+            curl_ids = self.project_id.mapped('task_ids').mapped('curl_ids')
+            for rec in curl_ids:
+                rec.prepare_ir_actions_server_record()
 
-
-
+            curl_ids.mapped('action_server_id').run()
         return {"type": "ir.actions.act_window_close"}
 
 
