@@ -9,7 +9,9 @@
                 <button name="action_view_task_curls"
                         type="object"
                         string="Ver automatizaciones"
-                        class="btn-primary"/>
+                        class="btn-primary"
+                        />
+                        <!-- context="{'reload': True }" -->
             </xpath>
 
             <xpath expr="//form/sheet/notebook" position="inside">

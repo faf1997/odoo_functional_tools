@@ -17,9 +17,15 @@
                 </group>
                 <footer>
                     <button name="action_launch"
-                            string="Lanzar"
+                            string="Lanzar proyecto"
                             type="object"
                             class="btn-primary"/>
+
+                    <button name="action_save_in_project"
+                            string="Guardar"
+                            type="object"
+                            class="btn-secondary"/>
+
                     <button name="action_cancel"
                             string="Cancelar"
                             type="object"

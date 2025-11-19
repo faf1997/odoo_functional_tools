@@ -31,9 +31,9 @@ class WindowDeployProject(models.TransientModel):
         return record
 
 
-    def _save_in_project(self):
+    def action_save_in_project(self):
         # self.ensure_one()
-        prefix = 'project_param_'
+        # prefix = 'project_param_'
         for rec in self:
             # for param in rec.config_parameter_ids:
             #     if param.key and not param.key.startswith(prefix):
@@ -44,9 +44,10 @@ class WindowDeployProject(models.TransientModel):
             })
         return True
 
+
     def action_launch(self):
         self.ensure_one()
-        self._save_in_project()
+        self.action_save_in_project()
         if self.project_id and self.project_id.task_ids:
             curl_ids = self.project_id.mapped('task_ids').mapped('curl_ids')
             for rec in curl_ids:

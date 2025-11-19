@@ -1,4 +1,5 @@
 from odoo import models, api
+from odoo.exceptions import ValidationError
 
 
 
@@ -6,7 +7,6 @@ from odoo import models, api
 
 class IrConfigParameter(models.Model):
     _inherit = 'ir.config_parameter'
-    
 
 
     @api.model_create_multi

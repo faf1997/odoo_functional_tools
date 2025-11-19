@@ -13,7 +13,6 @@ from dateutil.relativedelta import relativedelta
 from odoo.tools.safe_eval import safe_eval
 
 
-
 class CurlTask(models.Model):
     _name = "curl.task"
     _description = "Curl Task"
@@ -88,6 +87,31 @@ class CurlTask(models.Model):
         store=True,
         domain=[("key", "ilike", "task_param_%")]
     )
+
+
+    def copy(self, default=None):
+        self.ensure_one()
+        default = dict(default or {})
+
+        # Campos que quiero copiar tal cual
+        p = self.env['project.project']
+        # config_parameter_ids = [rec.copy({'key': f'{rec.key}_{self.id}'}).id for rec in self.config_parameter_ids]
+        hash_ = p.make_hash(f'{self.name}{p.get_now_argentina()}')
+        config_parameter_ids = [rec.copy({'key': f'{p.remove_from_hash(rec.key)}_hash:{hash_}'}).id for rec in self.config_parameter_ids]
+        default.update({
+            "name": self.name,
+            "command": self.command,
+            "code": self.code,
+            "status": self.status,
+            "sequence": self.sequence,
+            "description": self.description,
+            "curl_ids": [(6, 0, self.curl_ids.ids)],
+            "config_parameter_ids": [(6, 0, config_parameter_ids)],
+            "model_id": self.model_id.id,
+            "project_task_ids": [(6, 0, self.project_task_ids.ids)],
+        })
+
+        return super(CurlTask, self).copy(default)
 
 
     def action_curl_to_request(self):
@@ -166,6 +190,21 @@ class CurlTask(models.Model):
         self.ensure_one()
         for task in self.project_task_ids:
             task.sudo().write({'curl_ids': [(4, self.id)]})
+
+
+    def write(self, vals):
+        res = super().write(vals)
+        for record in self:
+            record._related_fix()
+        return res
+
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        for record in records:
+            record._related_fix()
+        return records
 
 
     def strip_python_comments(self, source: str, remove_docstrings: bool = True) -> str:

@@ -1,5 +1,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError
+import hashlib
+import re
 
 
 
@@ -23,12 +25,46 @@ class ProjectProject(models.Model):
     )
 
 
+    def get_now_argentina(self):
+        now_ar = fields.Datetime.context_timestamp(
+            self,
+            fields.Datetime.now()
+        )
+        # acá now_ar ya está en la tz del contexto (ej: America/Argentina/Buenos_Aires)
+        return now_ar
+
+
+    def make_hash(self, value: str) -> str:
+        return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+    def remove_from_hash(self, text: str) -> str:
+        return re.sub(r'_hash:.*', '', text, flags=re.DOTALL)
+
+
+    def copy(self, default=None):
+        self.ensure_one()
+        default = dict(default or {})
+
+        # Campos que quiero copiar tal cual
+        # copied_curl_ids = [rec.copy().id for rec in self.curl_ids]
+        hash_ = self.make_hash(f'{self.name}{self.get_now_argentina()}')
+        config_parameter_ids = [rec.copy({'key': f'{self.remove_from_hash(rec.key)}_hash:{hash_}'}).id for rec in self.config_parameter_ids]
+        
+        default.update({
+            "description": self.description,
+            "config_parameter_ids": [(6, 0, config_parameter_ids)],
+        })
+        
+        return super(ProjectProject, self).copy(default)
+
+
     def action_deploy_project(self):
         self.ensure_one()
         ctx = dict(self.env.context or {})
         ctx.update({
             "default_project_id": self.id,
-            "partner_id": self.partner_id.id,
+            "default_partner_id": self.partner_id.id,
             "default_config_parameter_ids": [(6, 0, self.config_parameter_ids.ids)],
             "project_param_prefix": "project_param_",
         })

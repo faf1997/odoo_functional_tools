@@ -19,7 +19,7 @@
             </xpath>
 
             <xpath expr="//notebook" position="inside">
-                <page string="Parámetros del proyecto" invisible="is_template">
+                <page string="Parámetros del proyecto">
 
                     <field name="config_parameter_ids">
                         <tree editable="bottom">
@@ -29,6 +29,7 @@
                         <sheet>
                             <group>
                             <field name="key"/>
+                            <field name="value"/>
                             <!-- widget="text" -->
                             </group>
                         </sheet>
