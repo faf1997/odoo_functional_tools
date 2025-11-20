@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- estimate.tags views -->
+        <record id="view_estimate_tags_tree" model="ir.ui.view">
+            <field name="name">estimate.tags.tree</field>
+            <field name="model">estimate.tags</field>
+            <field name="arch" type="xml">
+                <tree string="Estimate Tags">
+                    <field name="name"/>
+                    <field name="hours"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_estimate_tags_form" model="ir.ui.view">
+            <field name="name">estimate.tags.form</field>
+            <field name="model">estimate.tags</field>
+            <field name="arch" type="xml">
+                <form string="Estimate Tags">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="hours"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_estimate_tags" model="ir.actions.act_window">
+            <field name="name">Estimate Tags</field>
+            <field name="res_model">estimate.tags</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- estimate views -->
+        <record id="view_estimate_tree" model="ir.ui.view">
+            <field name="name">estimate.tree</field>
+            <field name="model">estimate</field>
+            <field name="arch" type="xml">
+                <tree string="Estimates">
+                    <field name="name"/>
+                    <field name="stage"/>
+                    <field name="total_hours"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_estimate_form" model="ir.ui.view">
+            <field name="name">estimate.form</field>
+            <field name="model">estimate</field>
+            <field name="arch" type="xml">
+                <form string="Estimate">
+                    <header>
+                        <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible': [('stage', '!=', 'draft')]}"/>
+                        <button name="action_finalize" string="Finalize" type="object" class="oe_highlight" attrs="{'invisible': [('stage', '!=', 'confirmed')]}"/>
+                        <button name="action_cancel" string="Cancel" type="object" attrs="{'invisible': [('stage', 'in', ['cancelled', 'finalized'])]}"/>
+                        <button name="action_reset_to_draft" string="Reset to Draft" type="object" attrs="{'invisible': [('stage', '=', 'draft')]}"/>
+                        <button name="%(project_curl_runner.action_report_estimate)d" string="Print Estimate" type="action" class="oe_highlight"/>
+                        <field name="stage" widget="statusbar" statusbar_visible="draft,confirmed,finalized"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </group>
+                        <group>
+                            <field name="logo"/>
+                        </group>
+                        <notebook>
+                            <page string="Estimate Lines">
+                                <field name="estimate_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                        <field name="tag_id"/>
+                                        <field name="hours"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="total_hours"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_estimate" model="ir.actions.act_window">
+            <field name="name">Estimates</field>
+            <field name="res_model">estimate</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu items -->
+        <menuitem id="menu_estimate_root" name="Estimates" sequence="10" web_icon="project_curl_runner,static/description/icon.png"/>
+        <menuitem id="menu_estimate" name="Estimates" parent="menu_estimate_root" action="action_estimate" sequence="10"/>
+        <menuitem id="menu_estimate_config" name="Configuration" parent="menu_estimate_root" sequence="100"/>
+        <menuitem id="menu_estimate_tags" name="Tags" parent="menu_estimate_config" action="action_estimate_tags" sequence="10"/>
+    </data>
+</odoo>

@@ -19,7 +19,10 @@
         "views/curl_task_views.xml",
         "views/project_task_views.xml",
         "views/project_project_views.xml",
+        "data/estimate_data.xml",
+        "views/estimate_views.xml",
+        "report/estimate_report.xml",
     ],
     "installable": True,
-    "application": False,
+    "application": True,
 }
