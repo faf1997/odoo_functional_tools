@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_estimate_styles">
+        <style>
+            /* Fuente con soporte completo UTF-8 para acentos */
+            * {
+                font-family: DejaVu Sans, FreeSans, sans-serif !important;
+            }
+
+            .page {
+                font-family: DejaVu Sans, FreeSans, sans-serif;
+                font-size: 12px;
+                color: #333;
+                padding: 20px;
+            }
+
+            .header h2, .header h3 {
+                font-family: DejaVu Sans, FreeSans, sans-serif;
+            }
+
+            /* Tabla principal */
+            .estimate-table th,
+            .estimate-table td {
+                font-family: DejaVu Sans, FreeSans, sans-serif;
+            }
+
+            /* Formato de horas - mantener monospace pero con fallback */
+            .hours-format {
+                font-family: DejaVu Sans Mono, monospace;
+                text-align: right;
+            }
+
+            /* Resto de estilos... */
+            .estimate-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+
+            .estimate-table th {
+                background-color: #f37105;
+                color: white;
+                border: 1px solid #d96c08;
+                padding: 10px 8px;
+                text-align: left;
+                font-weight: bold;
+            }
+
+            .estimate-table td {
+                border: 1px solid #dee2e6;
+                padding: 8px;
+                vertical-align: top;
+            }
+
+            .estimate-table tfoot tr {
+                background-color: #2c3e50;
+                color: white;
+                font-weight: bold;
+            }
+
+            .info-box {
+                background-color: #f8f9fa;
+                padding: 15px;
+                border-radius: 5px;
+                border: 1px solid #dee2e6;
+            }
+
+            .footer {
+                font-family: DejaVu Sans, FreeSans, sans-serif;
+            }
+
+            @page {
+                margin: 25mm 15mm 25mm 15mm;
+            }
+        </style>
+    </template>
+
+    <record id="paperformat_estimate" model="report.paperformat">
+        <field name="name">Estimate Report Format</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">70</field>
+        <field name="margin_bottom">30</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+<record id="action_report_estimate" model="ir.actions.report">
+        <field name="name">Estimate Report</field>
+        <field name="model">estimate</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">project_estimator.report_estimate_document</field>
+        <field name="report_file">project_estimator.report_estimate_document</field>
+        <field name="print_report_name">'Estimate - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_estimate"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_estimate_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <t t-set="o" t-value="doc"/>
+                    <t t-call="project_estimator.report_estimate_content"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_estimate_content">
+        <div class="page">
+            <!-- HEADER -->
+            <div class="header" style="border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 20px;">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 25%; vertical-align: top;">
+                            <t t-if="doc.logo">
+                                <img t-att-src="image_data_uri(doc.logo)" style="max-height: 80px; max-width: 150px;"/>
+                            </t>
+                        </td>
+                        <td style="width: 40%; vertical-align: top; text-align: center;">
+                            <h2 style="margin: 0; color: #333;">
+                                <t t-esc="doc.company_name or ''"/>
+                            </h2>
+                            <t t-if="doc.env.company.street">
+                                <span t-esc="doc.env.company.street"/><br/>
+                            </t>
+                            <t t-if="doc.env.company.city or doc.env.company.zip">
+                                <span><t t-esc="doc.env.company.zip"/> <t t-esc="doc.env.company.city"/></span><br/>
+                            </t>
+                            <t t-if="doc.env.company.phone">
+                                <span>Tel: <t t-esc="doc.env.company.phone"/></span><br/>
+                            </t>
+                            <t t-if="doc.env.company.email">
+                                <span><t t-esc="doc.env.company.email"/></span>
+                            </t>
+                        </td>
+                        <td style="width: 35%; vertical-align: top; text-align: right;">
+                            <h3 style="margin: 0; color: #2c3e50;">
+                                <t t-esc="doc.pdf_title or 'Estimate'"/>
+                            </h3>
+                            <p style="margin: 5px 0;">
+                                <strong>Nº:</strong> <t t-esc="doc.name"/>
+                            </p>
+                            <p style="margin: 5px 0;">
+                                <strong>Fecha:</strong> <t t-esc="doc.date" t-options="{'widget': 'date'}"/>
+                            </p>
+                            <p style="margin: 5px 0;">
+                                <strong>Estado:</strong> 
+                                <t t-esc="dict(doc._fields['stage'].selection).get(doc.stage)"/>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- INFO CLIENTE Y RESPONSABLE -->
+            <div style="margin-bottom: 25px;">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 50%; vertical-align: top; padding-right: 20px;">
+                            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; border: 1px solid #dee2e6;">
+                                <h4 style="margin: 0 0 10px 0; color: #495057; border-bottom: 1px solid #dee2e6; padding-bottom: 5px;">
+                                    Cliente
+                                </h4>
+                                <t t-if="doc.partner_id">
+                                    <p style="margin: 3px 0;"><strong><t t-esc="doc.partner_id.name"/></strong></p>
+                                    <t t-if="doc.partner_id.street">
+                                        <p style="margin: 3px 0;"><t t-esc="doc.partner_id.street"/></p>
+                                    </t>
+                                    <t t-if="doc.partner_id.street2">
+                                        <p style="margin: 3px 0;"><t t-esc="doc.partner_id.street2"/></p>
+                                    </t>
+                                    <t t-if="doc.partner_id.city or doc.partner_id.zip">
+                                        <p style="margin: 3px 0;">
+                                            <t t-esc="doc.partner_id.zip"/> <t t-esc="doc.partner_id.city"/>
+                                            <t t-if="doc.partner_id.state_id"> - <t t-esc="doc.partner_id.state_id.name"/></t>
+                                        </p>
+                                    </t>
+                                    <t t-if="doc.partner_id.country_id">
+                                        <p style="margin: 3px 0;"><t t-esc="doc.partner_id.country_id.name"/></p>
+                                    </t>
+                                    <t t-if="doc.partner_id.vat">
+                                        <p style="margin: 3px 0;"><strong>CUIT/VAT:</strong> <t t-esc="doc.partner_id.vat"/></p>
+                                    </t>
+                                    <t t-if="doc.partner_id.phone">
+                                        <p style="margin: 3px 0;"><strong>Teléfono:</strong> <t t-esc="doc.partner_id.phone"/></p>
+                                    </t>
+                                    <t t-if="doc.partner_id.email">
+                                        <p style="margin: 3px 0;"><strong>Email:</strong> <t t-esc="doc.partner_id.email"/></p>
+                                    </t>
+                                </t>
+                                <t t-else="">
+                                    <p style="margin: 3px 0; color: #6c757d;">Sin cliente asignado</p>
+                                </t>
+                            </div>
+                        </td>
+                        <td style="width: 50%; vertical-align: top;">
+                            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; border: 1px solid #dee2e6;">
+                                <h4 style="margin: 0 0 10px 0; color: #495057; border-bottom: 1px solid #dee2e6; padding-bottom: 5px;">
+                                    Responsable
+                                </h4>
+                                <t t-if="doc.user_id">
+                                    <p style="margin: 3px 0;"><strong><t t-esc="doc.user_id.name"/></strong></p>
+                                    <t t-if="doc.user_id.email">
+                                        <p style="margin: 3px 0;"><strong>Email:</strong> <t t-esc="doc.user_id.email"/></p>
+                                    </t>
+                                    <t t-if="doc.user_id.phone">
+                                        <p style="margin: 3px 0;"><strong>Teléfono:</strong> <t t-esc="doc.user_id.phone"/></p>
+                                    </t>
+                                </t>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- TABLA DE LÍNEAS -->
+            <div style="margin-bottom: 20px;">
+                <h4 style="color: #2c3e50; border-bottom: 2px solid #f77003; padding-bottom: 8px; margin-bottom: 15px;">
+                    <t t-esc="doc.pdf_title"/>
+                </h4>
+                <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+                    <thead>
+                        <tr style="background-color: #f37105; color: white;">
+                            <th style="border: 1px solid #d96c08; padding: 10px; text-align: left; width: 25%;">Nombre</th>
+                            <th style="border: 1px solid #d96c08; padding: 10px; text-align: left; width: 40%;">Descripción</th>
+                            <th style="border: 1px solid #d96c08; padding: 10px; text-align: center; width: 15%;">Etiqueta</th>
+                            <th style="border: 1px solid #d96c08; padding: 10px; text-align: right; width: 15%;">Horas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="line_num" t-value="0"/>
+                        <t t-foreach="doc.estimate_line_ids" t-as="line">
+                            <t t-set="line_num" t-value="line_num + 1"/>
+                            <tr t-att-style="'background-color: #f8f9fa;' if line_num % 2 == 0 else ''">
+                                <td style="border: 1px solid #dee2e6; padding: 8px; text-align: left; font-weight: bold;">
+                                    <t t-esc="line.name"/>
+                                </td>
+                                <td style="border: 1px solid #dee2e6; padding: 8px; text-align: left;">
+                                    <t t-if="line.description">
+                                        <t t-esc="line.description"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span style="color: #adb5bd;">-</span>
+                                    </t>
+                                </td>
+                                <td style="border: 1px solid #dee2e6; padding: 8px; text-align: center;">
+                                    <t t-if="line.tag_id">
+                                        <span style="background-color: #e9ecef; padding: 3px 8px; border-radius: 3px;">
+                                            <t t-esc="line.tag_id.name"/>
+                                        </span>
+                                    </t>
+                                    <t t-else="">
+                                        <span style="color: #adb5bd;">-</span>
+                                    </t>
+                                </td>
+                                <td style="border: 1px solid #dee2e6; padding: 8px; text-align: right;">
+                                    <t t-esc="line.get_format_hours()"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                
+                <!-- TOTAL - Fuera de la tabla para que aparezca solo al final -->
+                <table style="width: 100%; border-collapse: collapse; font-size: 11px; margin-top: -1px;">
+                    <tr style="background-color: #2c3e50; color: white; font-weight: bold;">
+                        <td style="border: 1px solid #1a252f; padding: 12px; text-align: right; font-size: 13px; width: 85%;">
+                            TOTAL HORAS
+                        </td>
+                        <td style="border: 1px solid #1a252f; padding: 12px; text-align: right; font-size: 14px; width: 15%;">
+                            <t t-esc="doc.get_format_hours()"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- NOTAS -->
+            <t t-if="doc.note">
+                <div style="margin-top: 30px; padding: 15px; background-color: #fff3cd; border: 1px solid #ffc107; border-radius: 5px;">
+                    <h5 style="margin: 0 0 10px 0; color: #856404;">Notas:</h5>
+                    <div t-raw="doc.note"/>
+                </div>
+            </t>
+
+        </div>
+    </template>
+
+</odoo>

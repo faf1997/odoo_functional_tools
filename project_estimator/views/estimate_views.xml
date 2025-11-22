@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+        <record id="action_report_estimate" model="ir.actions.report">
+            <field name="name">Estimate</field>
+            <field name="model">estimate</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">project_estimator.report_estimate</field>
+            <field name="report_file">project_estimator.report_estimate</field>
+            <field name="binding_model_id" ref="model_estimate"/>
+            <field name="binding_type">report</field>
+        </record>
+        
         <!-- estimate.tags views -->
         <record id="view_estimate_tags_tree" model="ir.ui.view">
             <field name="name">estimate.tags.tree</field>
@@ -41,6 +52,9 @@
             <field name="arch" type="xml">
                 <tree string="Estimates">
                     <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="user_id"/>
+                    <field name="is_template"/>
                     <field name="stage"/>
                     <field name="total_hours"/>
                 </tree>
@@ -52,14 +66,31 @@
             <field name="model">estimate</field>
             <field name="arch" type="xml">
                 <form string="Estimate">
+
                     <header>
-                        <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible': [('stage', '!=', 'draft')]}"/>
-                        <button name="action_finalize" string="Finalize" type="object" class="oe_highlight" attrs="{'invisible': [('stage', '!=', 'confirmed')]}"/>
-                        <button name="action_cancel" string="Cancel" type="object" attrs="{'invisible': [('stage', 'in', ['cancelled', 'finalized'])]}"/>
-                        <button name="action_reset_to_draft" string="Reset to Draft" type="object" attrs="{'invisible': [('stage', '=', 'draft')]}"/>
-                        <button name="%(project_curl_runner.action_report_estimate)d" string="Print Estimate" type="action" class="oe_highlight"/>
-                        <field name="stage" widget="statusbar" statusbar_visible="draft,confirmed,finalized"/>
+                        <button name="action_confirm" string="Confirm" type="object" class="oe_highlight"
+                                invisible="stage != 'draft'"
+                                readonly="is_template"/>
+                        <button name="action_finalize" string="Finalize" type="object" class="oe_highlight" 
+                                invisible="stage != 'confirmed'"
+                                readonly="is_template"/>
+                        <button name="action_cancel" string="Cancel" type="object" 
+                                invisible="stage in ['cancelled', 'finalized']"
+                                readonly="is_template"/>
+                        <button name="action_reset_to_draft" string="Reset to Draft" type="object" 
+                                invisible="stage == 'draft'"
+                                readonly="is_template"/>
+                        <button name="%(project_estimator.action_report_estimate)d"
+                                string="Print Estimate"
+                                type="action"
+                                class="oe_highlight"
+                                readonly="is_template"/>
+                        <field name="stage"
+                            widget="statusbar"
+                            statusbar_visible="draft,confirmed,finalized,canceled"
+                            readonly="is_template"/>
                     </header>
+
                     <sheet>
                         <group>
                             <h1>
@@ -67,24 +98,46 @@
                             </h1>
                         </group>
                         <group>
-                            <field name="logo"/>
+                            <group>
+                                <field name="partner_id" readonly="is_template"/>
+                                <field name="user_id" readonly="is_template"/>
+                                <field name="company_name" readonly="is_template"/>
+                                <field name="pdf_title" readonly="is_template"/>
+                            </group>
+                            <group>
+                                <field name="date" readonly="is_template"/>
+                                <field name="is_template"/>
+                                <field name="logo" readonly="is_template"/>
+                            </group>
                         </group>
+
                         <notebook>
                             <page string="Estimate Lines">
-                                <field name="estimate_line_ids">
+                                <field name="estimate_line_ids" readonly="is_template">
                                     <tree editable="bottom">
                                         <field name="name"/>
                                         <field name="description"/>
                                         <field name="tag_id"/>
-                                        <field name="hours"/>
+                                        <field name="hours" widget="float_time"/>
                                     </tree>
                                 </field>
                             </page>
+                            <page name="note" string="Note">
+                                <group >
+                                    <field name="note" widget="html"/>
+                                </group>
+                            </page>
                         </notebook>
+
                         <group class="oe_subtotal_footer oe_right">
-                            <field name="total_hours"/>
+                            <field name="total_hours" widget="float_time"/>
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -96,7 +149,7 @@
         </record>
 
         <!-- Menu items -->
-        <menuitem id="menu_estimate_root" name="Estimates" sequence="10" web_icon="project_curl_runner,static/description/icon.png"/>
+        <menuitem id="menu_estimate_root" name="Estimates" sequence="10" web_icon="project_estimator,static/description/icon.png"/>
         <menuitem id="menu_estimate" name="Estimates" parent="menu_estimate_root" action="action_estimate" sequence="10"/>
         <menuitem id="menu_estimate_config" name="Configuration" parent="menu_estimate_root" sequence="100"/>
         <menuitem id="menu_estimate_tags" name="Tags" parent="menu_estimate_config" action="action_estimate_tags" sequence="10"/>
