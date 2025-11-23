@@ -19,6 +19,7 @@
             <field name="arch" type="xml">
                 <tree string="Estimate Tags">
                     <field name="name"/>
+                    <field name="product_id"/>
                     <field name="hours"/>
                 </tree>
             </field>
@@ -32,6 +33,7 @@
                     <sheet>
                         <group>
                             <field name="name"/>
+                            <field name="product_id"/>
                             <field name="hours"/>
                         </group>
                     </sheet>
@@ -80,6 +82,14 @@
                         <button name="action_reset_to_draft" string="Reset to Draft" type="object" 
                                 invisible="stage == 'draft'"
                                 readonly="is_template"/>
+                        <button name="%(project_estimator.action_wizard_estimate_lines)d"
+                                string="Assign Hours by Percentage"
+                                type="action"
+                                class="oe_highlight"/>
+                        <button name="%(project_estimator.action_wizard_estimate_sale_order)d"
+                                string="Create Sale Order"
+                                type="action"
+                                class="oe_highlight"/>
                         <button name="%(project_estimator.action_report_estimate)d"
                                 string="Print Estimate"
                                 type="action"
@@ -118,6 +128,7 @@
                                         <field name="name"/>
                                         <field name="description"/>
                                         <field name="tag_id"/>
+                                         <field name="percent"/>
                                         <field name="hours" widget="float_time"/>
                                     </tree>
                                 </field>

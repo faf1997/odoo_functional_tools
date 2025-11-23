@@ -8,11 +8,16 @@
     'depends': [
         'base',
         'mail',
+        'product',
+        'sale_management',
     ],
 
     'data': [
+        'security/estimate_security.xml',
         'security/ir.model.access.csv',
         'data/estimate_data.xml',
+        'wizards/wizard_estimate_lines_view.xml',
+        'wizards/wizard_estimate_sale_order_view.xml',
         'views/estimate_views.xml',
         'report/estimate_report.xml',
     ],

@@ -159,6 +159,13 @@ class EstimateLines(models.Model):
     estimate_id = fields.Many2one('estimate', string='Estimate')
     hours = fields.Float(string='Hours')
 
+    percent = fields.Float(string='Percent', digits=(16, 2))
+
+    @api.constrains('percent')
+    def _check_percent(self):
+        for line in self:
+            if not 0 <= line.percent <= 100:
+                raise models.ValidationError("Percentage must be between 0 and 100.")
 
     def get_format_hours(self):
         '''
@@ -192,4 +199,11 @@ class EstimateTags(models.Model):
 
     name = fields.Char(string='Name', required=True)
     hours = fields.Float(string='Hours')
+    product_id = fields.Many2one('product.product', string='Product')
+
+    @api.constrains('product_id')
+    def _check_product_uom(self):
+        for tag in self:
+            if tag.product_id and tag.product_id.uom_id != self.env.ref('uom.product_uom_hour'):
+                raise models.ValidationError("The product's unit of measure must be 'Hours'.")
 
