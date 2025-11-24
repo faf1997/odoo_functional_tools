@@ -4,6 +4,7 @@
         <record id="group_estimate_user" model="res.groups">
             <field name="name">Estimate group</field>
             <field name="category_id" ref="base.module_category_project"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         </record>
     </data>
 </odoo>

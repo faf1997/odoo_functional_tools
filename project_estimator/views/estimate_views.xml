@@ -72,36 +72,48 @@
                     <header>
                         <button name="action_confirm" string="Confirm" type="object" class="oe_highlight"
                                 invisible="stage != 'draft'"
-                                readonly="is_template"/>
+                                readonly="is_template or stage == 'confirmed'"/>
                         <button name="action_finalize" string="Finalize" type="object" class="oe_highlight" 
                                 invisible="stage != 'confirmed'"
-                                readonly="is_template"/>
+                                readonly="is_template or stage == 'confirmed'"/>
                         <button name="action_cancel" string="Cancel" type="object" 
                                 invisible="stage in ['cancelled', 'finalized']"
-                                readonly="is_template"/>
+                                readonly="is_template or stage == 'confirmed'"/>
                         <button name="action_reset_to_draft" string="Reset to Draft" type="object" 
                                 invisible="stage == 'draft'"
-                                readonly="is_template"/>
+                                readonly="is_template or stage == 'confirmed'"/>
                         <button name="%(project_estimator.action_wizard_estimate_lines)d"
                                 string="Assign Hours by Percentage"
                                 type="action"
-                                class="oe_highlight"/>
-                        <button name="%(project_estimator.action_wizard_estimate_sale_order)d"
+                                class="oe_highlight"
+                                invisible="stage == 'confirmed'"/>
+                        <button name="action_open_estimate_sale_order_wizard"
                                 string="Create Sale Order"
-                                type="action"
-                                class="oe_highlight"/>
+                                type="object"
+                                class="oe_highlight"
+                                invisible="not stage == 'confirmed'"/>
                         <button name="%(project_estimator.action_report_estimate)d"
                                 string="Print Estimate"
                                 type="action"
                                 class="oe_highlight"
-                                readonly="is_template"/>
+                                readonly="is_template or stage == 'confirmed'"/>
                         <field name="stage"
                             widget="statusbar"
                             statusbar_visible="draft,confirmed,finalized,canceled"
-                            readonly="is_template"/>
+                            readonly="is_template or stage == 'confirmed'"/>
                     </header>
 
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button"
+                                    name="action_view_source_sale_orders"
+                                    type="object"
+                                    icon="fa-shopping-cart"
+                                    >
+                                    <!-- invisible="sale_order_count == 0" -->
+                                <field name="sale_order_count" string="Sale Orders" widget="statinfo"/>
+                            </button>
+                        </div>
                         <group>
                             <h1>
                                 <field name="name" readonly="1"/>
@@ -109,21 +121,22 @@
                         </group>
                         <group>
                             <group>
-                                <field name="partner_id" readonly="is_template"/>
-                                <field name="user_id" readonly="is_template"/>
-                                <field name="company_name" readonly="is_template"/>
-                                <field name="pdf_title" readonly="is_template"/>
+                                <field name="partner_id" readonly="is_template or stage == 'confirmed'"/>
+                                <field name="user_id" readonly="is_template or stage == 'confirmed'"/>
+                                <field name="company_name" readonly="is_template or stage == 'confirmed'"/>
+                                <field name="pdf_title" readonly="is_template or stage == 'confirmed'"/>
                             </group>
-                            <group>
-                                <field name="date" readonly="is_template"/>
+                            <group string="">
+                                <field name="date" readonly="is_template or stage == 'confirmed'"/>
                                 <field name="is_template"/>
-                                <field name="logo" readonly="is_template"/>
+                                <field name="logo" readonly="is_template or stage == 'confirmed'"/>
+                                <field name="pdf_website_link" readonly="is_template or stage == 'confirmed'"/>
                             </group>
                         </group>
 
                         <notebook>
                             <page string="Estimate Lines">
-                                <field name="estimate_line_ids" readonly="is_template">
+                                <field name="estimate_line_ids" readonly="is_template or stage == 'confirmed'">
                                     <tree editable="bottom">
                                         <field name="name"/>
                                         <field name="description"/>
@@ -132,17 +145,27 @@
                                         <field name="hours" widget="float_time"/>
                                     </tree>
                                 </field>
-                            </page>
-                            <page name="note" string="Note">
-                                <group >
-                                    <field name="note" widget="html"/>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="total_hours" widget="float_time"/>
                                 </group>
+                            </page>
+
+
+                            <page string="Sale orders" groups="base.group_no_one">
+                                <field name="sale_order_ids" readonly="1" options="{'no_create': True, 'no_open': True, 'no_delete': True}">
+                                    <tree editable="0">
+                                        <field name="name"/>
+                                        <field name="partner_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+
+                            <page name="note" string="Note">
+                                <field name="note" widget="html" nolabel="1"/>
                             </page>
                         </notebook>
 
-                        <group class="oe_subtotal_footer oe_right">
-                            <field name="total_hours" widget="float_time"/>
-                        </group>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids"/>

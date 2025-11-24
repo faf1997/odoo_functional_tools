@@ -6,6 +6,11 @@ class WizardEstimateSaleOrder(models.TransientModel):
 
     pricelist_id = fields.Many2one('product.pricelist', string='Pricelist', required=True)
 
+    partner_id = fields.Many2one(
+        'res.partner',
+        string='Customer'
+    )
+
     def create_sale_order(self):
         self.ensure_one()
         active_id = self.env.context.get('active_id')
@@ -25,9 +30,13 @@ class WizardEstimateSaleOrder(models.TransientModel):
             }))
 
         sale_order = self.env['sale.order'].create({
-            'partner_id': estimate.partner_id.id,
+            'partner_id': self.partner_id.id,
             'pricelist_id': self.pricelist_id.id,
             'order_line': order_lines,
+        })
+
+        estimate.write({
+            'partner_id': self.partner_id.id,
         })
 
         return {

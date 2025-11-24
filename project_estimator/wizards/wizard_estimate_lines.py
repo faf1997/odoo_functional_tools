@@ -4,8 +4,22 @@ class WizardEstimateLines(models.TransientModel):
     _name = 'wizard.estimate.lines'
     _description = 'Wizard Estimate Lines'
 
-    total_hours = fields.Float(string='Total Hours', required=True)
-    estimate_line_ids = fields.Many2many('estimate.lines', string='Estimate Lines')
+    estimate_id = fields.Many2one(
+        'estimate',
+        string='Estimate'
+    )
+
+    total_hours = fields.Float(
+        string='Total Hours',
+        required=True
+    )
+
+    estimate_line_ids = fields.Many2many(
+        'estimate.lines',
+        string='Estimate Lines',
+        # domain=[('estimate_id', '=', lambda self: self.estimate_id.id)]
+    )
+
 
     @api.model
     def default_get(self, fields):
@@ -14,6 +28,7 @@ class WizardEstimateLines(models.TransientModel):
         if active_id:
             estimate = self.env['estimate'].browse(active_id)
             res['estimate_line_ids'] = [(6, 0, estimate.estimate_line_ids.ids)]
+            res['estimate_id'] = estimate.id
         return res
 
     def assign_hours(self):
