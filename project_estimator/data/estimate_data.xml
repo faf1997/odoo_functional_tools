@@ -27,6 +27,20 @@
             <field name="name">Very Difficult</field>
             <field name="hours">16</field>
         </record>
-        
+
+        <record id="product_product_computer_services_hours" model="product.product">
+            <field name="name">computer services</field>
+            <field name="uom_id" eval="ref('uom.product_uom_hour')"/>
+            <field name="detailed_type" eval="'service'"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="sale_ok" eval="True"/>
+        </record>
+
+        <record id="estimate_tag_base_computer_services_hours" model="estimate.tags">
+            <field name="name">computer services</field>
+            <field name="hours">0</field>
+            <field name="product_id" eval="ref('project_estimator.product_product_computer_services_hours')"/>
+        </record>
+
     </data>
 </odoo>

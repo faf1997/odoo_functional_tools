@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_estimate_user,access_estimate_user,model_estimate,base.group_user,1,1,1,1
-access_estimate_lines_user,access_estimate_lines_user,model_estimate_lines,base.group_user,1,1,1,1
-access_estimate_tags_user,access_estimate_tags_user,model_estimate_tags,base.group_user,1,1,1,1
+access_estimate_user,access_estimate_user,model_estimate,project_estimator.group_estimate_user,1,1,1,1
+access_estimate_lines_user,access_estimate_lines_user,model_estimate_lines,project_estimator.group_estimate_user,1,1,1,1
+access_estimate_tags_user,access_estimate_tags_user,model_estimate_tags,project_estimator.group_estimate_user,1,1,1,1
+access_wizard_estimate_lines_user,access_wizard_estimate_lines_user,model_wizard_estimate_lines,project_estimator.group_estimate_user,1,1,1,1
+access_wizard_estimate_sale_order_user,access_wizard_estimate_sale_order_user,model_wizard_estimate_sale_order,project_estimator.group_estimate_user,1,1,1,1

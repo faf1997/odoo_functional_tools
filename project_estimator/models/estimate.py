@@ -1,11 +1,11 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 
 
 
 class Estimate(models.Model):
     _name = 'estimate'
-    _description = 'Estimate'
+    _description = _('Estimate')
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string='Name',
@@ -13,7 +13,10 @@ class Estimate(models.Model):
         default='New'
     )
 
-    date = fields.Date(string='Date')
+    date = fields.Date(
+        string='Date',
+        default=lambda self: fields.Date.context_today(self),
+    )
 
     user_id = fields.Many2one(
         'res.users',
@@ -47,7 +50,8 @@ class Estimate(models.Model):
 
     logo = fields.Image(
         string="Logo",
-        help="Logo for the PDF report."
+        help="Logo for the PDF report.",
+        copy=True,
     )
 
     stage = fields.Selection(
@@ -76,13 +80,62 @@ class Estimate(models.Model):
     )
 
     is_template = fields.Boolean(
-        string='Is template'
+        string='Is template',
+        copy=False,
     )
 
     partner_id = fields.Many2one(
         'res.partner',
-        string='Customer'
+        string='Customer',
+        copy=False,
     )
+
+    sale_order_ids = fields.One2many(
+        comodel_name="sale.order",
+        inverse_name="partner_id",
+        string="Sale Orders",
+        related="partner_id.sale_order_ids",
+        readonly=True,
+        domain="[('state' != 'cancel')]",
+        copy=False,
+    )
+
+    sale_order_count = fields.Integer(
+        string="Sale Orders",
+        compute="_compute_sale_order_count",
+        copy=False,
+    )
+
+    pdf_website_link = fields.Char(
+        string="Pdf website link",
+        default=lambda self: self.env['ir.config_parameter'].get_param('web.base.url', ''),
+        copy=True,
+    )
+
+
+    @api.depends("sale_order_ids")
+    def _compute_sale_order_count(self):
+        for rec in self:
+            rec.sale_order_count = len(rec.sale_order_ids)
+
+
+    def action_view_source_sale_orders(self):
+        self.ensure_one()
+        action = self.env.ref("sale.action_orders").read()[0]
+
+        # Filtramos solo los pedidos relacionados a esta estimate
+        action["domain"] = [("id", "in", self.sale_order_ids.ids)]
+
+        # Creamos un contexto nuevo a partir del actual
+        ctx = dict(self.env.context or {})
+        ctx.update({
+            "default_partner_id": self.partner_id.id if self.partner_id else False,
+        })
+        action["context"] = ctx  # <<-- acá reemplazamos en vez de hacer update sobre un string
+
+        return action
+
+
 
     def _fix_encoding(self, text):
         if not text:
@@ -91,6 +144,24 @@ class Estimate(models.Model):
             return text.encode('latin-1').decode('utf-8')
         except (UnicodeDecodeError, UnicodeEncodeError):
             return text
+
+
+    def action_open_estimate_sale_order_wizard(self):
+        self.ensure_one()
+        ctx = dict(self.env.context or {})
+        ctx.update({
+            "default_estimate_id": self.id,
+            "default_partner_id": self.partner_id.id if self.partner_id else False,
+        })
+
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Create Sale Order",
+            "res_model": "wizard.estimate.sale.order",
+            "view_mode": "form",
+            "target": "new",
+            "context": ctx,
+        }
 
 
     def get_format_hours(self):
@@ -159,6 +230,13 @@ class EstimateLines(models.Model):
     estimate_id = fields.Many2one('estimate', string='Estimate')
     hours = fields.Float(string='Hours')
 
+    percent = fields.Float(string='Percent', digits=(16, 2))
+
+    @api.constrains('percent')
+    def _check_percent(self):
+        for line in self:
+            if not 0 <= line.percent <= 100:
+                raise models.ValidationError(_("Percentage must be between 0 and 100."))
 
     def get_format_hours(self):
         '''
@@ -192,4 +270,14 @@ class EstimateTags(models.Model):
 
     name = fields.Char(string='Name', required=True)
     hours = fields.Float(string='Hours')
+    product_id = fields.Many2one('product.product', string='Product')
+
+    @api.constrains('product_id')
+    def _check_product_uom(self):
+        for tag in self:
+            if tag.product_id and tag.product_id.uom_id != self.env.ref('uom.product_uom_hour'):
+                raise models.ValidationError(_("The product's unit of measure must be 'Hours'."))
+            if tag.product_id and tag.product_id.detailed_type != 'service':
+                raise models.ValidationError(_("The product must be a service."))
+
 
