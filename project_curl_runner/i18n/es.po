@@ -1,0 +1,577 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* project_estimator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e-20250606\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-24 11:59+0000\n"
+"PO-Revision-Date: 2025-11-24 11:59+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: project_estimator
+#: model:ir.actions.report,print_report_name:project_estimator.action_report_estimate
+msgid "'Estimate - %s' % (object.name)"
+msgstr "Estimar"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "<span style=\"color: #adb5bd;\">-</span>"
+msgstr ""
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_document
+msgid ""
+"<span>Page </span>\n"
+"                                <span class=\"page\"/>\n"
+"                                <span> of </span>\n"
+"                                <span class=\"topage\"/>"
+msgstr ""
+"<span>Página </span>\n"
+"                                <span class=\"page\"/>\n"
+"                                <span> of </span>\n"
+"                                <span class=\"topage\"/>"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "<strong>Date:</strong>"
+msgstr "<strong>Fecha:</strong>"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "<strong>Email:</strong>"
+msgstr "<strong>Correo:</strong>"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "<strong>Nº:</strong>"
+msgstr ""
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "<strong>Teléfono:</strong>"
+msgstr ""
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "<strong>State:</strong>"
+msgstr "<strong>Estado:</strong>"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "<strong>VAT:</strong>"
+msgstr "<strong>CUIT:</strong>"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__message_needaction
+msgid "Action Needed"
+msgstr "Se necesita acción"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción de actividad"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__activity_state
+msgid "Activity State"
+msgstr "Estado de actividad"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_wizard_estimate_lines_form
+msgid "Assign Hours"
+msgstr "Asignar horas"
+
+#. module: project_estimator
+#: model:ir.actions.act_window,name:project_estimator.action_wizard_estimate_lines
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_wizard_estimate_lines_form
+msgid "Assign Hours by Percentage"
+msgstr "Asignar horas por porcentaje"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__message_attachment_count
+msgid "Attachment Count"
+msgstr "Recuento de archivos adjuntos"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_wizard_estimate_lines_form
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_wizard_estimate_sale_order_form
+msgid "Cancel"
+msgstr ""
+
+#. module: project_estimator
+#: model:ir.model.fields.selection,name:project_estimator.selection__estimate__stage__cancelled
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "Cliente"
+msgstr "Cliente"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__company_name
+msgid "Company name"
+msgstr ""
+
+#. module: project_estimator
+#: model:ir.ui.menu,name:project_estimator.menu_estimate_config
+msgid "Configuration"
+msgstr "Nombre de empresa"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: project_estimator
+#: model:ir.model.fields.selection,name:project_estimator.selection__estimate__stage__confirmed
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_wizard_estimate_sale_order_form
+msgid "Create Sale Order"
+msgstr "Crear orden de venta"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__create_uid
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__create_uid
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_tags__create_uid
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_lines__create_uid
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_sale_order__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__create_date
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__create_date
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_tags__create_date
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_lines__create_date
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_sale_order__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__partner_id
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_sale_order__partner_id
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__description
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "Description"
+msgstr "Descripción"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__display_name
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__display_name
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_tags__display_name
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_lines__display_name
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_sale_order__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: project_estimator
+#: model:ir.model.fields.selection,name:project_estimator.selection__estimate__stage__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: project_estimator
+#: model:ir.model,name:project_estimator.model_estimate
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__estimate_id
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_lines__estimate_id
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
+msgid "Estimate"
+msgstr "Estimar"
+
+#. module: project_estimator
+#: model:ir.model,name:project_estimator.model_estimate_lines
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__estimate_line_ids
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_lines__estimate_line_ids
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
+msgid "Estimate Lines"
+msgstr "Líneas de estimación"
+
+#. module: project_estimator
+#: model:ir.actions.report,name:project_estimator.action_report_estimate
+msgid "Estimate Report"
+msgstr "Informe de estimación"
+
+#. module: project_estimator
+#: model:ir.actions.act_window,name:project_estimator.action_estimate_tags
+#: model:ir.model,name:project_estimator.model_estimate_tags
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_tags_form
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_tags_tree
+msgid "Estimate Tags"
+msgstr "Etiquetas de estimación"
+
+#. module: project_estimator
+#: model:res.groups,name:project_estimator.group_estimate_user
+msgid "Estimate group"
+msgstr "grupo de estimación"
+
+#. module: project_estimator
+#: model:ir.actions.act_window,name:project_estimator.action_estimate
+#: model:ir.ui.menu,name:project_estimator.menu_estimate
+#: model:ir.ui.menu,name:project_estimator.menu_estimate_root
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_tree
+msgid "Estimates"
+msgstr "Estimaciones"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
+msgid "Finalize"
+msgstr "Finalizar"
+
+#. module: project_estimator
+#: model:ir.model.fields.selection,name:project_estimator.selection__estimate__stage__finalized
+msgid "Finalized"
+msgstr "Finalizado"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Socios)"
+
+#. module: project_estimator
+#: model:ir.model.fields,help:project_estimator.field_estimate__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de Font Awesome, por ejemplo, fa-tasks"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__hours
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_tags__hours
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "Hours"
+msgstr "Horas"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__id
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__id
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_tags__id
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_lines__id
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_sale_order__id
+msgid "ID"
+msgstr "ID"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: project_estimator
+#: model:ir.model.fields,help:project_estimator.field_estimate__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: project_estimator
+#: model:ir.model.fields,help:project_estimator.field_estimate__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, los mensajes nuevos requieren su atención".
+
+#. module: project_estimator
+#: model:ir.model.fields,help:project_estimator.field_estimate__message_has_error
+#: model:ir.model.fields,help:project_estimator.field_estimate__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega".
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__is_template
+msgid "Is template"
+msgstr "Es plantilla"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "Label"
+msgstr "Etiqueta"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__write_uid
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__write_uid
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_tags__write_uid
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_lines__write_uid
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_sale_order__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__write_date
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__write_date
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_tags__write_date
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_lines__write_date
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_sale_order__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__logo
+msgid "Logo"
+msgstr "Logo"
+
+#. module: project_estimator
+#: model:ir.model.fields,help:project_estimator.field_estimate__logo
+msgid "Logo for the PDF report."
+msgstr "Logotipo para el informe en PDF."
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega del mensaje"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de mi actividad"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__name
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__name
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_tags__name
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "Name"
+msgstr "Nombre"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite de la próxima actividad"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "No assigned client"
+msgstr "No hay cliente asignado"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "Notas:"
+msgstr "Notas:"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__note
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
+msgid "Note"
+msgstr "Nota"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: project_estimator
+#: model:ir.model.fields,help:project_estimator.field_estimate__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren acción"
+
+#. module: project_estimator
+#: model:ir.model.fields,help:project_estimator.field_estimate__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__pdf_title
+msgid "Pdf title"
+msgstr "Título"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__pdf_website_link
+msgid "Pdf website link"
+msgstr "Enlace al sitio web"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__percent
+msgid "Percent"
+msgstr "Prcentaje"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_sale_order__pricelist_id
+msgid "Pricelist"
+msgstr "Lista de precios"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
+msgid "Print Estimate"
+msgstr "Imprimir presupuesto"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_tags__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__rating_ids
+msgid "Ratings"
+msgstr "Calificaciones"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
+msgid "Reset to Draft"
+msgstr "Volver a borrador"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__user_id
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__sale_order_count
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__sale_order_ids
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
+msgid "Sale Orders"
+msgstr "Órdenes de venta"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
+msgid "Sale orders"
+msgstr "Órdenes de venta"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__stage
+msgid "Stage"
+msgstr "Etapa"
+
+#. module: project_estimator
+#: model:ir.model.fields,help:project_estimator.field_estimate__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "TOTAL HOURS"
+msgstr ""
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__tag_id
+msgid "Tag"
+msgstr "Etiqueta"
+
+#. module: project_estimator
+#: model:ir.ui.menu,name:project_estimator.menu_estimate_tags
+msgid "Tags"
+msgstr "Etiquetas"
+
+#. module: project_estimator
+#: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
+msgid "Tel:"
+msgstr "Tel:"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__total_hours
+#: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_lines__total_hours
+msgid "Total Hours"
+msgstr "Horas Totales"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__total_price
+msgid "Total Price"
+msgstr "Precio Total"
+
+#. module: project_estimator
+#: model:ir.model.fields,help:project_estimator.field_estimate__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción registrada."
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: project_estimator
+#: model:ir.model.fields,help:project_estimator.field_estimate__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio web"
+
+#. module: project_estimator
+#: model:ir.model,name:project_estimator.model_wizard_estimate_lines
+msgid "Wizard Estimate Lines"
+msgstr "Líneas de estimación del asistente"
+
+#. module: project_estimator
+#: model:ir.model,name:project_estimator.model_wizard_estimate_sale_order
+msgid "Wizard Estimate Sale Order"
+msgstr "Asistente para estimar pedidos de venta"
+
+#. module: project_estimator
+#: model:product.template,name:project_estimator.product_product_computer_services_hours_product_template
+msgid "computer services"
+msgstr "servicios informáticos"
