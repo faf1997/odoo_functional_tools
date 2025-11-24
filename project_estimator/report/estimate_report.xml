@@ -124,16 +124,16 @@
     <template id="report_estimate_content">
         <div class="page">
             <!-- HEADER -->
-            <div class="header" style="border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 20px;">
+            <div class="header" style="border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 20px; ">
                 <table style="width: 100%;">
                     <tr>
-                        <td style="width: 25%; vertical-align: top;">
+                        <td style="width: 25%; vertical-align: top; border: 1px solid #fff !important;">
                             <t t-if="doc.logo">
                                 <img t-att-src="image_data_uri(doc.logo)" style="max-height: 80px; max-width: 150px;"/>
                             </t>
                         </td>
-                        <td style="width: 40%; vertical-align: top; text-align: center;">
-                            <h2 style="margin: 0; color: #333;">
+                        <td style="width: 40%; vertical-align: top; text-align: center; border: 1px solid #fff !important;">
+                            <h2 style="margin: 0; color: #333; border: 1px solid #fff !important;">
                                 <t t-esc="doc.company_name or ''"/>
                             </h2>
                             <t t-if="doc.env.company.street">
@@ -149,17 +149,17 @@
                                 <span><t t-esc="doc.env.company.email"/></span>
                             </t>
                         </td>
-                        <td style="width: 35%; vertical-align: top; text-align: right;">
-                            <h3 style="margin: 0; color: #2c3e50;">
+                        <td style="width: 35%; vertical-align: top; text-align: right; border: 1px solid #fff !important;">
+                            <h3 style="margin: 0; color: #2c3e50; border: 1px solid #fff !important;">
                                 <t t-esc="doc.pdf_title or 'Estimate'"/>
                             </h3>
-                            <p style="margin: 5px 0;">
+                            <p style="margin: 5px 0; border: 1px solid #fff !important;">
                                 <strong>Nº:</strong> <t t-esc="doc.name"/>
                             </p>
-                            <p style="margin: 5px 0;">
+                            <p style="margin: 5px 0; border: 1px solid #fff !important;">
                                 <strong>Date:</strong> <t t-esc="doc.date" t-options="{'widget': 'date'}"/>
                             </p>
-                            <p style="margin: 5px 0;">
+                            <p style="margin: 5px 0; border: 1px solid #fff !important;">
                                 <strong>State:</strong> 
                                 <t t-esc="dict(doc._fields['stage'].selection).get(doc.stage)"/>
                             </p>
@@ -172,7 +172,7 @@
             <div style="margin-bottom: 25px;">
                 <table style="width: 100%;">
                     <tr>
-                        <td style="width: 50%; vertical-align: top; padding-right: 20px;">
+                        <td style="width: 50%; vertical-align: top; padding-right: 20px; border: 1px solid #fff !important;">
                             <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; border: 1px solid #dee2e6;">
                                 <h4 style="margin: 0 0 10px 0; color: #495057; border-bottom: 1px solid #dee2e6; padding-bottom: 5px;">
                                     Cliente
@@ -209,7 +209,7 @@
                                 </t>
                             </div>
                         </td>
-                        <td style="width: 50%; vertical-align: top;">
+                        <td style="width: 50%; vertical-align: top; border: 1px solid #fff !important;">
                             <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; border: 1px solid #dee2e6;">
                                 <h4 style="margin: 0 0 10px 0; color: #495057; border-bottom: 1px solid #dee2e6; padding-bottom: 5px;">
                                     Responsible
