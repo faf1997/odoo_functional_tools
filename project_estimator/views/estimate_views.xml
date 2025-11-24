@@ -109,8 +109,8 @@
                                     name="action_view_source_sale_orders"
                                     type="object"
                                     icon="fa-shopping-cart"
+                                    invisible="sale_order_count == 0"
                                     >
-                                    <!-- invisible="sale_order_count == 0" -->
                                 <field name="sale_order_count" string="Sale Orders" widget="statinfo"/>
                             </button>
                         </div>

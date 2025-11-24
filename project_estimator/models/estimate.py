@@ -1,11 +1,11 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 
 
 
 class Estimate(models.Model):
     _name = 'estimate'
-    _description = 'Estimate'
+    _description = _('Estimate')
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string='Name',
@@ -15,7 +15,7 @@ class Estimate(models.Model):
 
     date = fields.Date(
         string='Date',
-    default=lambda self: fields.Date.context_today(self),
+        default=lambda self: fields.Date.context_today(self),
     )
 
     user_id = fields.Many2one(
@@ -111,6 +111,7 @@ class Estimate(models.Model):
         default=lambda self: self.env['ir.config_parameter'].get_param('web.base.url', ''),
         copy=True,
     )
+
 
     @api.depends("sale_order_ids")
     def _compute_sale_order_count(self):
@@ -235,7 +236,7 @@ class EstimateLines(models.Model):
     def _check_percent(self):
         for line in self:
             if not 0 <= line.percent <= 100:
-                raise models.ValidationError("Percentage must be between 0 and 100.")
+                raise models.ValidationError(_("Percentage must be between 0 and 100."))
 
     def get_format_hours(self):
         '''
@@ -275,8 +276,8 @@ class EstimateTags(models.Model):
     def _check_product_uom(self):
         for tag in self:
             if tag.product_id and tag.product_id.uom_id != self.env.ref('uom.product_uom_hour'):
-                raise models.ValidationError("The product's unit of measure must be 'Hours'.")
+                raise models.ValidationError(_("The product's unit of measure must be 'Hours'."))
             if tag.product_id and tag.product_id.detailed_type != 'service':
-                raise models.ValidationError("The product must be a service.")
+                raise models.ValidationError(_("The product must be a service."))
 
 
