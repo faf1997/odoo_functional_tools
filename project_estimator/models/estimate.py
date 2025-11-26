@@ -38,13 +38,13 @@ class Estimate(models.Model):
     )
     
     title_1 = fields.Char(
-        string='Company name',
+        string='Main title',
         copy=True,
         default=lambda self: self.env.company.name
     )
 
     title_2 = fields.Char(
-        string='Pdf title',
+        string='Secondary title',
         copy=True,
         default='Estimate'
     )
