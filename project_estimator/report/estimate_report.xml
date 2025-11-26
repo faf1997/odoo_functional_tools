@@ -136,7 +136,7 @@
                             <h2 style="margin: 0; color: #333; border: 1px solid #fff !important;">
                                 <t t-esc="doc.title_1 or ''"/>
                             </h2>
-                            <t t-if="doc.env.company.street">
+                            <!-- <t t-if="doc.env.company.street">
                                 <span t-esc="doc.env.company.street"/><br/>
                             </t>
                             <t t-if="doc.env.company.city or doc.env.company.zip">
@@ -147,7 +147,7 @@
                             </t>
                             <t t-if="doc.env.company.email">
                                 <span><t t-esc="doc.env.company.email"/></span>
-                            </t>
+                            </t> -->
                         </td>
                         <td style="width: 35%; vertical-align: top; text-align: right; border: 1px solid #fff !important;">
                             <!-- <h3 style="margin: 0; color: #2c3e50; border: 1px solid #fff !important;">
