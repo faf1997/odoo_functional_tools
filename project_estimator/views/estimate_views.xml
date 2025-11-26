@@ -54,6 +54,9 @@
             <field name="arch" type="xml">
                 <tree string="Estimates">
                     <field name="name"/>
+                    <field name="active" readonly="1" invisible="1"/>
+                    <field name="title_2"/>
+                    <field name="tag_id"/>
                     <field name="partner_id"/>
                     <field name="user_id"/>
                     <field name="is_template"/>
@@ -121,16 +124,18 @@
                         </group>
                         <group>
                             <group>
+                                <field name="active" readonly="1" invisible="1"/>
                                 <field name="partner_id" readonly="is_template or stage == 'confirmed'"/>
                                 <field name="user_id" readonly="is_template or stage == 'confirmed'"/>
-                                <field name="company_name" readonly="is_template or stage == 'confirmed'"/>
-                                <field name="pdf_title" readonly="is_template or stage == 'confirmed'"/>
+                                <field name="title_1" readonly="is_template or stage == 'confirmed'"/>
+                                <field name="title_2" readonly="is_template or stage == 'confirmed'"/>
                             </group>
                             <group string="">
                                 <field name="date" readonly="is_template or stage == 'confirmed'"/>
                                 <field name="is_template"/>
                                 <field name="logo" readonly="is_template or stage == 'confirmed'"/>
                                 <field name="pdf_website_link" readonly="is_template or stage == 'confirmed'"/>
+                                <field name="tag_id" readonly="is_template or stage == 'confirmed'"/>
                             </group>
                         </group>
 
