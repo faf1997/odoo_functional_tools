@@ -134,7 +134,7 @@
                         </td>
                         <td style="width: 40%; vertical-align: top; text-align: center; border: 1px solid #fff !important;">
                             <h2 style="margin: 0; color: #333; border: 1px solid #fff !important;">
-                                <t t-esc="doc.company_name or ''"/>
+                                <t t-esc="doc.title_1 or ''"/>
                             </h2>
                             <t t-if="doc.env.company.street">
                                 <span t-esc="doc.env.company.street"/><br/>
@@ -150,9 +150,9 @@
                             </t>
                         </td>
                         <td style="width: 35%; vertical-align: top; text-align: right; border: 1px solid #fff !important;">
-                            <h3 style="margin: 0; color: #2c3e50; border: 1px solid #fff !important;">
-                                <t t-esc="doc.pdf_title or 'Estimate'"/>
-                            </h3>
+                            <!-- <h3 style="margin: 0; color: #2c3e50; border: 1px solid #fff !important;">
+                                <t t-esc="doc.title_2 or 'Estimate'"/>
+                            </h3> -->
                             <p style="margin: 5px 0; border: 1px solid #fff !important;">
                                 <strong>Nº:</strong> <t t-esc="doc.name"/>
                             </p>
@@ -232,7 +232,7 @@
             <!-- TABLA DE LÍNEAS -->
             <div style="margin-bottom: 20px;">
                 <h4 style="color: #2c3e50; border-bottom: 2px solid #f77003; padding-bottom: 8px; margin-bottom: 15px;">
-                    <t t-esc="doc.pdf_title"/>
+                    <t t-esc="doc.title_2"/>
                 </h4>
                 <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
                     <thead>

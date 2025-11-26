@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 
@@ -11,6 +12,10 @@ class Estimate(models.Model):
     name = fields.Char(string='Name',
         copy=False,
         default='New'
+    )
+
+    active = fields.Boolean(
+        string='Active'
     )
 
     date = fields.Date(
@@ -30,17 +35,17 @@ class Estimate(models.Model):
         copy=True,
         string='Estimate Lines'
     )
-
-    pdf_title = fields.Char(
-        string='Pdf title',
-        copy=True,
-        default='Estimate'
-    )
-
-    company_name = fields.Char(
+    
+    title_1 = fields.Char(
         string='Company name',
         copy=True,
         default=lambda self: self.env.company.name
+    )
+
+    title_2 = fields.Char(
+        string='Pdf title',
+        copy=True,
+        default='Estimate'
     )
 
     note = fields.Html(
@@ -52,6 +57,7 @@ class Estimate(models.Model):
         string="Logo",
         help="Logo for the PDF report.",
         copy=True,
+        default=lambda self: self.env.company.logo
     )
 
     stage = fields.Selection(
@@ -111,6 +117,17 @@ class Estimate(models.Model):
         default=lambda self: self.env['ir.config_parameter'].get_param('web.base.url', ''),
         copy=True,
     )
+
+
+    tag_id = fields.Many2one('estimate.tags', string='Tag')
+
+    @api.model
+    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
+        args = list(args or [])
+        if name:
+            args += [('title_2', 'ilike', name)]
+        # return super(Estimate, self).name_search(name=name, args=args, operator=operator, limit=limit)
+        return self._search(args, limit=limit, access_rights_uid=name_get_uid)
 
 
     @api.depends("sale_order_ids")

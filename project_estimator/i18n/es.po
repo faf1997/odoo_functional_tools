@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e-20250606\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-24 12:57+0000\n"
-"PO-Revision-Date: 2025-11-24 12:57+0000\n"
+"POT-Creation-Date: 2025-11-26 01:48+0000\n"
+"PO-Revision-Date: 2025-11-26 01:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. module: project_estimator
 #: model:ir.actions.report,print_report_name:project_estimator.action_report_estimate
 msgid "'Estimate - %s' % (object.name)"
-msgstr "'Presupuesto - %s' % (object.name)"
+msgstr "'Estimación - %s' % (object.name)"
 
 #. module: project_estimator
 #: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
@@ -50,7 +50,7 @@ msgstr "<strong>Correo electrónico:</strong>"
 
 #. module: project_estimator
 #: model_terms:ir.ui.view,arch_db:project_estimator.report_estimate_content
-msgid "<strong>NÂº:</strong>"
+msgid "<strong>Nº:</strong>"
 msgstr "<strong>Nº:</strong>"
 
 #. module: project_estimator
@@ -72,6 +72,11 @@ msgstr "<strong>CUIT:</strong>"
 #: model:ir.model.fields,field_description:project_estimator.field_estimate__message_needaction
 msgid "Action Needed"
 msgstr "Acción requerida"
+
+#. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__active
+msgid "Active"
+msgstr "Activo"
 
 #. module: project_estimator
 #: model:ir.model.fields,field_description:project_estimator.field_estimate__activity_ids
@@ -128,7 +133,7 @@ msgid "Cliente"
 msgstr "Cliente"
 
 #. module: project_estimator
-#: model:ir.model.fields,field_description:project_estimator.field_estimate__company_name
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__title_1
 msgid "Company name"
 msgstr "Nombre de la empresa"
 
@@ -205,13 +210,12 @@ msgstr "Borrador"
 #. module: project_estimator
 #. odoo-python
 #: code:addons/project_estimator/models/estimate.py:0
-#: model:ir.model,name:project_estimator.model_estimate
 #: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__estimate_id
 #: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_lines__estimate_id
 #: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
 #, python-format
 msgid "Estimate"
-msgstr "Presupuesto"
+msgstr "Estimación"
 
 #. module: project_estimator
 #: model:ir.model,name:project_estimator.model_estimate_lines
@@ -219,12 +223,12 @@ msgstr "Presupuesto"
 #: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_lines__estimate_line_ids
 #: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
 msgid "Estimate Lines"
-msgstr "Líneas de presupuesto"
+msgstr "Líneas de estimación"
 
 #. module: project_estimator
 #: model:ir.actions.report,name:project_estimator.action_report_estimate
 msgid "Estimate Report"
-msgstr "Informe de presupuesto"
+msgstr "Informe de estimación"
 
 #. module: project_estimator
 #: model:ir.actions.act_window,name:project_estimator.action_estimate_tags
@@ -232,12 +236,12 @@ msgstr "Informe de presupuesto"
 #: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_tags_form
 #: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_tags_tree
 msgid "Estimate Tags"
-msgstr "Etiquetas de presupuesto"
+msgstr "Etiquetas de estimación"
 
 #. module: project_estimator
 #: model:res.groups,name:project_estimator.group_estimate_user
 msgid "Estimate group"
-msgstr "Grupo de presupuesto"
+msgstr "Grupo de estimación"
 
 #. module: project_estimator
 #: model:ir.actions.act_window,name:project_estimator.action_estimate
@@ -245,7 +249,7 @@ msgstr "Grupo de presupuesto"
 #: model:ir.ui.menu,name:project_estimator.menu_estimate_root
 #: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_tree
 msgid "Estimates"
-msgstr "Presupuestos"
+msgstr "Estimaciones"
 
 #. module: project_estimator
 #: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
@@ -437,7 +441,7 @@ msgid "Number of messages with delivery error"
 msgstr "Cantidad de mensajes con error de entrega"
 
 #. module: project_estimator
-#: model:ir.model.fields,field_description:project_estimator.field_estimate__pdf_title
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__title_2
 msgid "Pdf title"
 msgstr "Título del PDF"
 
@@ -459,6 +463,11 @@ msgid "Percentage must be between 0 and 100."
 msgstr "El porcentaje debe estar entre 0 y 100."
 
 #. module: project_estimator
+#: model:ir.model,name:project_estimator.model_estimate
+msgid "Presupuesto"
+msgstr "Estimación"
+
+#. module: project_estimator
 #: model:ir.model.fields,field_description:project_estimator.field_wizard_estimate_sale_order__pricelist_id
 msgid "Pricelist"
 msgstr "Tarifa"
@@ -466,7 +475,7 @@ msgstr "Tarifa"
 #. module: project_estimator
 #: model_terms:ir.ui.view,arch_db:project_estimator.view_estimate_form
 msgid "Print Estimate"
-msgstr "Imprimir presupuesto"
+msgstr "Imprimir estimación"
 
 #. module: project_estimator
 #: model:ir.model.fields,field_description:project_estimator.field_estimate_tags__product_id
@@ -535,6 +544,7 @@ msgid "TOTAL HOURS"
 msgstr "HORAS TOTALES"
 
 #. module: project_estimator
+#: model:ir.model.fields,field_description:project_estimator.field_estimate__tag_id
 #: model:ir.model.fields,field_description:project_estimator.field_estimate_lines__tag_id
 msgid "Tag"
 msgstr "Etiqueta"
@@ -592,12 +602,12 @@ msgstr "Historial de comunicación del sitio web"
 #. module: project_estimator
 #: model:ir.model,name:project_estimator.model_wizard_estimate_lines
 msgid "Wizard Estimate Lines"
-msgstr "Asistente de líneas de presupuesto"
+msgstr "Asistente de líneas de estimación"
 
 #. module: project_estimator
 #: model:ir.model,name:project_estimator.model_wizard_estimate_sale_order
 msgid "Wizard Estimate Sale Order"
-msgstr "Asistente de pedido de venta de presupuesto"
+msgstr "Asistente de pedido de venta de estimación"
 
 #. module: project_estimator
 #: model:product.template,name:project_estimator.product_product_computer_services_hours_product_template
