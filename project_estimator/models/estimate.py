@@ -15,7 +15,8 @@ class Estimate(models.Model):
     )
 
     active = fields.Boolean(
-        string='Active'
+        string='Active',
+        default=True
     )
 
     date = fields.Date(
