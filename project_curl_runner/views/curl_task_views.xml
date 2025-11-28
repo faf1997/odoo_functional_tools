@@ -20,7 +20,6 @@
                             string="Run ir.actions.server"
                             class="btn-primary"
                             invisible="action_server_id == False"/>
-                            
                 </header>
                 <sheet>
                     <group>
@@ -70,6 +69,7 @@
         <field name="model">curl.task</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="status_code"/>
                 <field name="status"/>
