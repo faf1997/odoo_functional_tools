@@ -143,10 +143,11 @@
                             <page string="Estimate Lines">
                                 <field name="estimate_line_ids" readonly="is_template or stage == 'confirmed'">
                                     <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
                                         <field name="name"/>
                                         <field name="description"/>
                                         <field name="tag_id"/>
-                                         <field name="percent"/>
+                                        <field name="percent"/>
                                         <field name="hours" widget="float_time"/>
                                     </tree>
                                 </field>
