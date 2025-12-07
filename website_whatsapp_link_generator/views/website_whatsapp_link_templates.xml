@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="whatsapp_link_page" name="Generador de links de WhatsApp">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h1 class="mb-4 text-center">Generador de links de WhatsApp</h1>
+                        <div class="card p-4">
+                            <div class="mb-3">
+                                <label class="form-label">Número de WhatsApp (con código de país, sin +)</label>
+                                <input type="text" id="wa_phone" class="form-control" placeholder="5491122334455"/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Mensaje personalizado</label>
+                                <textarea id="wa_message" class="form-control" rows="4" placeholder="Escribí el mensaje que querés enviar"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Link generado</label>
+                                <div class="input-group">
+                                    <input type="text" id="wa_link" class="form-control" readonly="readonly"/>
+                                    <button id="wa_copy" class="btn btn-primary" type="button">Copiar</button>
+                                </div>
+                            </div>
+                            <p class="text-muted small mb-0">
+                                El link usa el formato oficial de WhatsApp:
+                                <code>https://wa.me/&lt;telefono&gt;?text=&lt;mensaje_codificado&gt;</code>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -36,7 +36,7 @@ class Estimate(models.Model):
         copy=True,
         string='Estimate Lines'
     )
-    
+
     title_1 = fields.Char(
         string='Main title',
         copy=True,
@@ -119,8 +119,8 @@ class Estimate(models.Model):
         copy=True,
     )
 
-
     tag_id = fields.Many2one('estimate.tags', string='Tag')
+
 
     @api.model
     def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
@@ -237,11 +237,12 @@ class Estimate(models.Model):
 
 
 
-
 class EstimateLines(models.Model):
     _name = 'estimate.lines'
     _description = 'Estimate Lines'
+    _order = "sequence, id"
 
+    sequence = fields.Integer()
     name = fields.Char(string='Name', required=True)
     description = fields.Text(string='Description')
     tag_id = fields.Many2one('estimate.tags', string='Tag')

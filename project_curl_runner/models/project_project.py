@@ -25,6 +25,60 @@ class ProjectProject(models.Model):
     )
 
 
+    def get_task_steps_by_dependencies(self):
+        self.ensure_one()
+        # Task = self.env['project.task']
+
+        tasks = self.task_ids
+        if not tasks:
+            return []
+
+        project_task_ids = set(tasks.ids)
+
+        deps_map = {
+            task.id: set(task.depend_on_ids.ids) & project_task_ids
+            for task in tasks
+        }
+
+        in_degree = {task_id: len(deps) for task_id, deps in deps_map.items()}
+
+        successors_map = {task_id: set() for task_id in project_task_ids}
+        for task_id, deps in deps_map.items():
+            for dep_id in deps:
+                successors_map[dep_id].add(task_id)
+
+        steps = []
+        remaining_ids = set(project_task_ids)
+
+        while remaining_ids:
+            current_level = tasks.filtered(
+                lambda t: t.id in remaining_ids and in_degree[t.id] == 0
+            ).sorted(lambda t: (t.sequence, t.id))
+
+            if not current_level:
+                fallback = tasks.filtered(
+                    lambda t: t.id in remaining_ids
+                ).sorted(lambda t: (t.sequence, t.id))
+                steps.append({
+                    'step': len(steps) + 1,
+                    'tasks': fallback,
+                })
+                break
+
+            steps.append({
+                'step': len(steps) + 1,
+                'tasks': current_level,
+            })
+
+            for task in current_level:
+                remaining_ids.discard(task.id)
+                for succ_id in successors_map.get(task.id, set()):
+                    if succ_id in remaining_ids:
+                        in_degree[succ_id] = max(0, in_degree[succ_id] - 1)
+
+        return steps
+
+
     def get_now_argentina(self):
         now_ar = fields.Datetime.context_timestamp(
             self,
@@ -55,7 +109,7 @@ class ProjectProject(models.Model):
             "description": self.description,
             "config_parameter_ids": [(6, 0, config_parameter_ids)],
         })
-        
+
         return super(ProjectProject, self).copy(default)
 
 
