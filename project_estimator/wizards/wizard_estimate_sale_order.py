@@ -10,6 +10,7 @@ class WizardEstimateSaleOrder(models.TransientModel):
         'res.partner',
         string='Customer'
     )
+    
 
     def create_sale_order(self):
         self.ensure_one()

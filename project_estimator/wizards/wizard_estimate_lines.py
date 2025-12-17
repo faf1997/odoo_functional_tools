@@ -20,6 +20,18 @@ class WizardEstimateLines(models.TransientModel):
         # domain=[('estimate_id', '=', lambda self: self.estimate_id.id)]
     )
 
+    total_percent = fields.Float(
+        string='Porcentaje total',
+        compute='_sum_percent'
+    )
+
+
+    def _sum_percent(self):
+        for rec in self:
+            total_percent = 0
+            for line in rec.estimate_line_ids:
+                total_percent += line.percent
+            rec.total_percent = total_percent
 
     @api.model
     def default_get(self, fields):

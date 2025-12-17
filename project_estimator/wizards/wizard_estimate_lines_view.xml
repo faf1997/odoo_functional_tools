@@ -9,19 +9,25 @@
                     <group>
                         <field name="total_hours" widget="float_time"/>
                     </group>
+                    <field name="estimate_id" invisible="1"/>
                     <field name="estimate_line_ids" options="{
                                'no_create': True,
                                'no_create_edit': True,
                                'no_quick_create': True,
                                'unlink': False,
                                'no_open': True
-                           }">
+                           }"
+                           domain="[('estimate_id', '=', estimate_id)]"
+                           >
                         <tree editable="bottom" create="0" delete="0">
                             <field name="name"/>
                             <field name="percent" required="1"/>
                             <field name="hours" widget="float_time"/>
                         </tree>
                     </field>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="total_percent"/>
+                    </group>
                     <footer>
                         <button name="assign_hours" string="Assign Hours" type="object" class="btn-primary"/>
                         <button string="Cancel" class="btn-secondary" special="cancel"/>

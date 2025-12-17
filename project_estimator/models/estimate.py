@@ -115,7 +115,7 @@ class Estimate(models.Model):
 
     pdf_website_link = fields.Char(
         string="Pdf website link",
-        default=lambda self: self.env['ir.config_parameter'].get_param('web.base.url', ''),
+        default=lambda self: self.env['ir.config_parameter'].sudo().get_param('web.base.url', '').replace("http://", "https://"),
         copy=True,
     )
 
@@ -152,8 +152,6 @@ class Estimate(models.Model):
         action["context"] = ctx  # <<-- acá reemplazamos en vez de hacer update sobre un string
 
         return action
-
-
 
     def _fix_encoding(self, text):
         if not text:
@@ -212,7 +210,7 @@ class Estimate(models.Model):
 
     def _compute_total_price(self):
         for estimate in self:
-            estimate.total_price = sum(line.price for line in estimate.estimate_line_ids)
+            estimate.total_price = sum(line.sudo().price for line in estimate.estimate_line_ids)
 
     def action_confirm(self):
         self.write({'stage': 'confirmed'})

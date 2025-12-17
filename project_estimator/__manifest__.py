@@ -1,7 +1,7 @@
 {
     'name': 'Project estimator',
     'summary': 'Nos permite estimar horas y costos como una tabla excel y exportarlo a pdf',
-    'version': '17.0.1.0.1',
+    'version': '17.0.1.0.2',
     'author': 'Francisco Fiorentino',
     'category': 'Project',
     'license': 'LGPL-3',
