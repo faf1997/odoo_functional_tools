@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_secret_secret_user,access.secret.secret.user,model_secret_secret,group_secret_user,1,0,0,0
+access_secret_secret_manager,access.secret.secret.manager,model_secret_secret,group_secret_manager,1,1,1,1
