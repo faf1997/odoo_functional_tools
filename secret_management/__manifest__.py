@@ -27,6 +27,7 @@
         'security/ir.model.access.csv',
         'views/secret_secret_views.xml',
         'views/menu_items.xml',
+        'views/project_project_views.xml',
     ],
     'installable': True,
     'application': False,

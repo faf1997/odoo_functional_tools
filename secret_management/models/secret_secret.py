@@ -35,20 +35,6 @@ class SecretSecret(models.Model):
         default=True
     )
 
-    def action_copy_value(self):
-        """Copy value to clipboard - shows notification"""
-        for record in self:
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'title': 'Valor de la credencial',
-                    'message': f'Clave: {record.key}\nValor: {record.value}',
-                    'type': 'info',
-                    'sticky': True,
-                }
-            }
-
     @api.depends('partner_id', 'key')
     def _compute_name(self):
         """Compute name field based on partner and key"""

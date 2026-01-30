@@ -3,10 +3,10 @@
     <data>
         <!-- Menu Item under Project -->
         <menuitem id="menu_secret_management"
-                  name="Client Credentials"
-                  parent="project.menu_main_pm"
-                  action="action_secret_secret"
-                  groups="group_secret_user,group_secret_manager"
-                  sequence="100"/>
+            name="Credenciales"
+            parent="project.menu_main_pm"
+            action="action_secret_secret"
+            groups="secret_management.group_secret_user,secret_management.group_secret_manager"
+            sequence="100"/>
     </data>
 </odoo>
